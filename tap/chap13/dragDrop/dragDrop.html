@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style>
+    #shopping_cart {
+      width: 500px;
+      height: 150px;
+      border: 1px solid blue;
+    }
+  </style>
+  <script type="text/javascript">
+    let count=0;
+    function handleDragStart(e) {
+      e.dataTransfer.effectAllowd = 'move';
+      e.dataTransfer.setData('text',e.target.id);
+
+    }
+    <!-- div에 영역으로 들어오는 시점이 되는 순간 -->
+    function allowDrop(e) {
+      count++;
+      e.preventDefault();
+    }
+    function handleDrop(e){
+      e.preventDefault();
+      e.target.appendChild(document.getElementById(e.dataTransfer.getData("text")));
+    }
+
+  </script>
+</head>
+
+<body>
+  <div id="shopping_cart" ondragover="allowDrop(event)" ondrop="handleDrop(event)">
+
+  </div>
+  <img id="img1" src="../tv.png" width="150px" height="100" draggable="true" ondragstart="handleDragStart(event)">
+  <img  id="img2" src="../tv.png" width="150px" height="100" draggable="true" ondragstart="handleDragStart(event)">
+  <img id="img3" src="../tv.png" width="150px" height="100" draggable="true" ondragstart="handleDragStart(event)">
+</body>
+
+</html>
