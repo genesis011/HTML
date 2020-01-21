@@ -1,0 +1,8 @@
+body{width: 1500px; }
+table{width: 1500px; border-top: 1px solid #eeeeee; border-collapse: collapse;}
+table tr td p{width: 330px; height: 20px; text-align: center; display: inline-block; margin: 0;}
+.change_grey{background-color: #f7f7f7; width: 150px; height: 10px; border-bottom: 1px solid #e5e5e5; font-size: 16px; font-weight: bold; padding-left: 10px;}
+.info{width: 330px; height: 45px; border-bottom: 1px solid #e5e5e5; font-size: 14px; }
+.info2{width: 740px; height: 45px; border-bottom: 1px solid #eeeeee;}
+#pay_view{width: 820px; font-size: 26px; font-weight: bold;}
+#bus_view{width: 820px; font-size: 20px;}

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="homepage.css">
+</head>
+
+<body>
+  <div class="div-total">
+    <header>
+      <a href="home_mac.html">
+        <div id="div-logo">
+          <img src="apple_logo.png" width="30" alt="logo" />
+          <h1>shop</h1>
+        </div>
+      </a>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="home_mac.html">home</a></li>
+        <li><a href="aboutus.html">about us</a></li>
+        <li><a href="news.html">news</a></li>
+        <li><a href="mypage.html">my page</a></li>
+        <li><a href="contact.html">contact</a></li>
+      </ul>
+    </nav>
+
+    <aside id="aside-left">
+      <h3>category</h3>
+      <ul>
+        <li><a href="home_mac.html">mac</a></li>
+        <li><a href="home_ipad.html">ipad</a></li>
+        <li><a href="home_iphone.html">iphone</a></li>
+        <li><a href="home_watch.html">watch</a></li>
+        <li><a href="home_music.html">music</a></li>
+      </ul>
+    </aside>
+
+    <section id = "section-cart">
+      <fieldset>
+        <legend>shopping cart</legend>
+      </fieldset>
+      <table>
+        <tr>
+          <th>products</th>
+          <th>price</th>
+          <th>quantity</th>
+          <th>total</th>
+        </tr>
+        <tr>
+          <td>iPad mini 5</td>
+          <td>499,000￦</td>
+          <td><input type="number" name="quantity" value="1"></td>
+          <td>?</td>
+        </tr>
+        <tr>
+          <td>iMac pro</td>
+          <td>3,599,000￦</td>
+          <td><input type="number" name="quantity" value="1"></td>
+          <td>?</td>
+        </tr>
+        <tr>
+          <td>airpods pro</td>
+          <td>329,000￦</td>
+          <td><input type="number" name="quantity" value="1"></td>
+          <td>?</td>
+        </tr>
+      </table>
+      <br>
+      <div class="div-button">
+        <button type="button" name="button">calculate</button>
+        <button type="submit" name="button">buy</button>
+        <button type="reset" name="button">reset</button>
+      </div>
+    </section>
+
+    <aside id="aside-right">
+      <h4>login</h4>
+      <div>
+        <form action="#" method="post">
+          <label for="id">id</label><input type="text" name="id" /><br>
+          <label for="password">pw</label><input type="text" name="password" /><br>
+        </form>
+        <br>
+        <button type="submit" name="signin">signin</button>
+        <button type="reset" name="reset">reset</button><br><br>
+        <a href="signup.html" target="_blank">sign up</a> /
+        <a href="#" target="_blank">find pw</a>
+      </div>
+
+      <br>
+      <hr>
+
+      <h4>shopping cart</h4>
+      <div>
+        <p id="p-cart">
+          <em>- cart is empty.</em> <br><br>
+          <a href="cart.html">show my cart</a>
+        </p>
+      </div>
+    </aside>
+
+
+    <footer>
+      Copyright (c) 2020 web shop
+    </footer>
+  </div>
+</body>
+
+</html>

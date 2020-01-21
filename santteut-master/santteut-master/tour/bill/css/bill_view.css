@@ -1,0 +1,146 @@
+#top_text{font-size: 24px; border-bottom: 2px solid black; margin-left: 14%; margin-top: 40px; padding-bottom: 10px; width: 1098px;}
+#tbl_div1 b{margin-left: 14%; font-size: 21px;}
+#top_text2{padding-top: 50px;}
+#tbl_div2 b{margin-left: 14%; font-size: 21px;}
+#top_text3{padding-top: 20px;}
+.left2{font-size: 13px; font-weight: bold; background-color: #f2f2f2; width: 100px; }
+.gb2{ background-color: #1ae134; color: white; width: 65px; height: 20px; text-align: center; margin-left: 15px; font-size: 12px; font-weight: bold; padding-top: 5px; border-radius: 3px;}
+#pac_name2{padding-left: 15px; font-weight: bold; border-bottom: 1px solid #dddddd;}
+#pac_code2{padding-left: 15px; font-size: 13px; border-bottom: 1px solid #dddddd;}
+#period1{padding-left: 15px; font-size:15px; font-weight: bold;}
+#pac_name{padding: 15px 8px; border-bottom: 1px solid #dddddd;}
+#pac_code{padding: 15px 8px; border-bottom: 1px solid #dddddd;}
+#sch1{padding: 10px 8px;}
+#tbl1{margin-top: 15px; margin-left: 14%; width: 810px; height: 210px;  border: 1px solid #dddddd; margin-bottom: 20px; border-collapse: collapse;}
+#tbl2{margin-top: 15px; margin-left: 14%; width: 810px; height: 150px;  border: 1px solid #dddddd; margin-bottom: 20px; border-collapse: collapse;}
+#tbl3{margin-top: 30px; margin-left: 14%; width: 810px; height: 50px;  border: 1px solid #dddddd; margin-bottom: 20px; border-collapse: collapse;}
+#tbl4{margin-top: 30px; margin-left: 14%; width: 810px; height: 150px;  border: 1px solid #dddddd; margin-bottom: 20px; border-collapse: collapse;}
+.in1{width: 20px;}
+.inputs1{width: 60px;}
+#tour_text1{border-bottom: 2px solid black; width: 1098px; margin-left: 14%; padding-bottom: 7px; padding-top: 15px;}
+#tour_text1 b{ font-size: 21px;}
+.label{width: 15px; height: 7px; background-color: #1ae134; padding-bottom: 15px; padding-left: 5px; border-radius: 5px;}
+.label_img{font-size: 15px; position: absolute; }
+
+
+
+
+/* 상품가격 */
+#package_detail_pay_imformation{padding-top: 30px; margin-left: 14%; font-size: 21px;}
+#package_detail_imformation_text b{padding-top: 50px;}
+#package_detail_imformation_table{color: #353535; margin-top: 15px; width: 810px; height: 250px; border: 1px solid #dddddd; font-size: 13px; text-align: center; border-collapse: collapse;}
+#package_detail_imformation_division{width: 300px; height: 50px; background-color: #f2f2f2; border-right:  1px solid #dddddd; border-bottom:  1px solid #dddddd;}
+#package_detail_imformation_adult{background-color: #f2f2f2; border-right:  1px solid #dddddd; border-bottom:  1px solid #dddddd;}
+#package_detail_imformation_child{background-color: #f2f2f2; border-right:  1px solid #dddddd; border-bottom:  1px solid #dddddd;}
+#package_detail_imformation_baby{background-color: #f2f2f2; border-bottom:  1px solid #dddddd;}
+#package_detail_imformation_pay {background-color: #f2f2f2; border-right:  1px solid #dddddd; border-bottom:  1px solid #dddddd;}
+.package_detail_imformation_pay_field{background-color: #f2f2f2; border-right:  1px solid #dddddd; border-bottom:  1px solid #dddddd;}
+.package_detail_imformation_pay_field_value{border-right:  1px solid #dddddd; border-bottom:  1px solid #dddddd;}
+.package_detail_imformation_pay_field_value_final{color: #2F9D27;border-right:  1px solid #dddddd; border-bottom:  1px solid #dddddd;}
+
+
+
+/* 최소인원정보 */
+#package_minimum_person_imformation{padding-top: 50px; border: none; margin-left: 14%; font-size: 21px;}
+#package_minimum_person_imformation_text b{padding-top: 50px;}
+#package_minimum_person_imformation_table{ color: #353535 ;margin-top: 15px; width: 810px; height: 80px; border: 1px solid #dddddd;text-align: center; font-size: 13px;  border-collapse: collapse;}
+#person_standard{height: 30px; width: 250px;background-color: #f2f2f2;border-right:  1px solid #dddddd;border-bottom:  1px solid #dddddd;}
+#person_standard_value{height: 30px; width: 130px;border-right:  1px solid #dddddd;border-bottom:  1px solid #dddddd;}
+#commission_standard{height: 30px; width: 250px; background-color: #f2f2f2;border-right:  1px solid #dddddd;border-bottom:  1px solid #dddddd;}
+.commission_standard_value{height: 30px; width: 190px;border-bottom:  1px solid #dddddd;}
+.commission_standard_value b{color: #2F9D27 ;}
+#package_minimum_person_imformation_value{font-size: 12px; color: #5D5D5D;}
+
+
+/* 보험 */
+#package_detail_imformations{padding-top: 20px; border: none; margin-left: 14%; font-size: 21px;}
+#package_detail_imformations_text b{padding-top: 50px;}
+#package_detail_imformations_btn_field{color: #353535; padding-top: 20px;}
+/* 버튼css적용 */
+.package_detail_imformations_btn{}
+#insurance_table{color: #353535; margin-top: 15px; width: 810px; height: 80px; border: 1px solid #dddddd;text-align: center; font-size: 13px;  border-collapse: collapse;}
+#insurance_division{width: 200px;background-color: #f2f2f2;border-right:  1px solid #dddddd;border-bottom:  1px solid #dddddd;}
+#insurance_content{width: 410px; background-color: #f2f2f2;border-right:  1px solid #dddddd;border-bottom:  1px solid #dddddd;}
+#insurance_limit{width: 200px; background-color: #f2f2f2;border-right:  1px solid #dddddd;border-bottom:  1px solid #dddddd;}
+#insurance_domestic{background-color: #f2f2f2;border-right:  1px solid #dddddd;border-bottom:  1px solid #dddddd;}
+#insurance_abroad{background-color: #f2f2f2;border-right:  1px solid #dddddd;border-bottom:  1px solid #dddddd;}
+#insurance_injury{background-color: #f2f2f2;border-right:  1px solid #dddddd;border-bottom:  1px solid #dddddd;}
+#insurance_death{background-color: #f2f2f2;border-right:  1px solid #dddddd;border-bottom:  1px solid #dddddd;}
+#insurance_medical_expenses{background-color: #f2f2f2;border-right:  1px solid #dddddd;border-bottom:  1px solid #dddddd;}
+.insurance_value{color:#5D5D5D; padding: 15px;height: 30px; border-bottom:  1px solid #dddddd;border-right:  1px solid #dddddd;}
+.insurance_damage{background-color: #f2f2f2;border-right:  1px solid #dddddd;border-bottom:  1px solid #dddddd;}
+
+
+
+/* 결제안내 */
+#payment_imformation_field{ color: #353535;}
+#payment_imformation_table{background-color:#f2f2f2; color: #353535; margin-top: 15px; width: 810px; height: 80px; border: 1px solid #dddddd;text-align: left; font-size: 13px;  border-collapse: collapse;}
+#payment_imformation_table td {padding: 20px; color: #353535; margin-top: 15px; width: 810px; height: 80px;text-align: left; font-size: 13px;  border-collapse: collapse;}
+#payment_imformation_final{font-size: 12px; color:#5D5D5D }
+
+
+
+
+/* 결제수단 선택 */
+
+#payment_choice{padding-top: 50px; border: none; margin-left: 14%; font-size: 21px;}
+#payment_choice_text b{padding-top: 50px;}
+#payment_choice_table{color: #353535; margin-top: 15px; width: 810px; height: 150px; border: 1px solid #dddddd; font-size: 13px; text-align: center; border-collapse: collapse;}
+#payment_choice_way{width: 100px; background-color:#f2f2f2; border-right:  1px solid #dddddd;border-bottom:  1px solid #dddddd;}
+#payment_choice_direct{background-color:#f2f2f2; border-right:  1px solid #dddddd;border-bottom:  1px solid #dddddd;}
+#payment_choice_kakaopay{background-color:#f2f2f2;border-bottom:  1px solid #dddddd;}
+#payment_choice_kakaopay_img{background-color:#f2f2f2;border-bottom:  1px solid #dddddd;text-align: left;}
+.kakopay_img{width: 100px; height: 30px; text-align: center; border-radius: 10px;}
+#kakopay_radiobtn{ padding-top: 10px;}
+#payment_choice_kakaopay_detail{ color:#5D5D5D ;padding-left: 30px;border-bottom:  1px solid #dddddd;text-align: left;}
+/* #select_bank{padding-left: 10px; padding-right: 10px; padding-bottom:5px;margin-top: 12px;} */
+#payment_choice_direct_detail_1{border-bottom:  1px dotted #dddddd; }
+#payment_choice_direct_detail_2{border-right:  1px solid #dddddd; text-align: left;}
+#payment_choice_direct_detail_3{font-size: 12px; color: #353535; text-align: left; border-bottom:  1px solid #dddddd;}
+#final_mention{color: #2F9D27;}
+
+
+
+
+/* 약관동의 */
+
+#agree_terms{padding-top: 50px; border: none; margin-left: 14%; font-size: 21px;}
+#payment_choice_text b{padding-top: 50px;}
+#payment_choice_table{color: #353535; margin-top: 15px; width: 810px; height: 150px; border: 1px solid #dddddd; font-size: 13px; text-align: center; border-collapse: collapse;}
+#payment_choice_way{width: 100px; background-color:#f2f2f2; border-right:  1px solid #dddddd;border-bottom:  1px solid #dddddd;}
+#payment_choice_direct{background-color:#f2f2f2; border-right:  1px solid #dddddd;border-bottom:  1px solid #dddddd;}
+#payment_choice_kakaopay{background-color:#f2f2f2;border-bottom:  1px solid #dddddd;}
+#payment_choice_kakaopay_img{background-color:#f2f2f2;border-bottom:  1px solid #dddddd;text-align: left;}
+.kakopay_img{width: 100px; height: 30px; text-align: center; border-radius: 10px;}
+#kakopay_radiobtn{ padding-top: 10px;}
+#payment_choice_kakaopay_detail{ color:#5D5D5D ;padding-left: 30px;border-bottom:  1px solid #dddddd;text-align: left;}
+/* #select_bank{padding-left: 10px; padding-right: 10px; padding-bottom:5px;margin-top: 12px;} */
+#payment_choice_direct_detail_1{border-bottom:  1px dotted #dddddd; }
+#payment_choice_direct_detail_2{border-right:  1px solid #dddddd; text-align: left;}
+#payment_choice_direct_detail_3{font-size: 12px; color: #353535; text-align: left; border-bottom:  1px solid #dddddd;}
+#final_mention{color: #2F9D27;}
+
+
+
+
+
+
+
+/* 사이드바 */
+
+#detail_menu{    border: 2px solid grey; border-top:1.5px solid grey; max-width: 250px; width: 17%; position:sticky; top: 15px;  margin-top: 30px; margin-left: 69%; display : inline-block; margin:0px; float:right; margin-top:30px; margin-right:200px;}
+#select_people{background-color: #f2f2f2;}
+#select_people p{font-size: 13px; color:#444444; display: inline-block; font-weight: bold; margin-bottom: 1px; margin-top: 5px;}
+#adult{margin-left: 37px;}
+#kid{margin-left: 42px;}
+#baby{margin-left: 40px;}
+#sel1{width: 55px; margin-left: 25px; margin-bottom: 10px; margin-top: 2px; padding: 4px 3px; border-radius: 2px;}
+#sel2{width: 55px; margin-left: 11px; padding: 4px 3px; border-radius: 2px;}
+#sel3{width: 55px; margin-left: 11px; padding: 4px 3px; border-radius: 2px;}
+#total_pay{margin-left: 15px; font-size: 16px; font-weight: bold; margin-bottom: 0px;}
+#money{font-size: 30px; color: #e85581; margin-left: 70px;}
+#won{font-size: 16px; color: #e85581;  display: inline-block;}
+.subtext1{font-size: 9px; color: #6e6e6e; text-align: right; margin-right: 10px;}
+#line{font-size: 9px; color: #cccccc; margin-left: 2%;}
+#reserve_status{background-color: #35cc2b; color: white; font-size: 15px; font-weight: bold; width: 180px; margin-left: 23px; text-align: center; padding: 14px 5px;}
+#go_cart{ border: 1px solid #e85581; color: #e85581; font-size: 15px; font-weight: bold; width: 180px; margin-left: 23px; text-align: center; padding: 13px 4px; margin-bottom: 15px;}

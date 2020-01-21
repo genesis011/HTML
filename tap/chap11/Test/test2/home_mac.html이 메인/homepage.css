@@ -1,0 +1,240 @@
+body {
+  width : 1024px;
+  margin : 0 auto;
+}
+
+a {
+  text-decoration : none;
+  color : black;
+}
+
+header {
+  text-align: center;
+  background-color : #ddd;
+  height : 100px;
+  font-style: italic;
+  line-height: 100px;
+}
+
+nav {
+  height : 60px;
+  text-align: center;
+  user-select: none;
+}
+
+nav > ul > li{
+  list-style-type: none;
+  display: inline;
+  margin-right: 8%;
+}
+
+nav > ul > li > a {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#div-logo > h1, #div-logo {
+  display: inline;
+  user-select: none;
+}
+
+#aside-left, #aside-right{
+  overflow: visible;
+  float : left;
+  width : 15%;
+  border : 1px solid black;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+#aside-right {
+  float : right;
+}
+
+#aside-left > h3 {
+  text-indent : 15px;
+}
+
+#aside-left > ul {
+  list-style-type: none;
+  padding : 0px;
+  text-indent : 20px;
+}
+
+#aside-left > ul > li {
+  margin : 5px;
+}
+
+#aside-left > ul > li > a {
+  display: block;
+  text-decoration: none;
+  color : black;
+  padding : 2px;
+}
+
+#aside-left > ul > li > a:hover{
+  background-color : black;
+  color : white;
+}
+
+#aside-right > * {
+  text-indent: 15px;
+}
+
+#aside-right a {
+  border-bottom: 1px dotted gray;
+}
+
+#aside-right > div {
+  margin-left: 20px;
+  text-indent: 0;
+}
+
+section {
+  width : 70%;
+  display: table-cell;
+  float: left;
+  text-align: center;
+  padding : 20px;
+  box-sizing: border-box;
+}
+
+#section-home {
+  width : 68%;
+  margin-left: 1%;
+  /* border : 1px solid black; */
+  padding-top : 30px;
+  padding-bottom : 30px;
+}
+
+section fieldset {
+  border : none;
+}
+
+section input {
+  width : 160px;
+  margin : 10px;
+}
+
+section legend {
+  font-size : 20px;
+}
+
+section label {
+  display: inline-block;
+  width: 50px;
+  text-align : right;
+  margin-right : 10px;
+}
+
+section > article {
+  width : 48%;
+  height : 400px;
+  display: table-cell;
+  vertical-align: center;
+}
+
+section > article > p {
+  padding : 15px;
+}
+
+section > article > img {
+  margin: 0 auto;
+  display: block;
+  width : 70%;
+}
+
+#section-cart > table {
+  margin : 0 auto;
+}
+
+#section-cart th {
+  width: 100px;
+}
+
+#section-news {
+  width : 100%;
+}
+
+#section-news > article {
+  float: left;
+  width : 33%;
+}
+
+#section-aboutus, #section-contact {
+  width : 100%;
+}
+
+#section-aboutus > img, #section-aboutus > article {
+  width : 70%
+}
+
+#section-aboutus p{
+  width : 500px;
+  margin: 0 auto;
+}
+
+#section-aboutus > h1 {
+  font-size: 70px;
+  margin-top: 10px;
+}
+
+#section-contact > article {
+  text-align: center;
+  margin: 200px;
+  width : 100%;
+  padding : 0;
+}
+
+#section-mypage {
+  width : 100%;
+}
+
+#section-mypage > img {
+  width : 256px;
+}
+
+#section-mypage table {
+  width : 50%;
+  margin: 0 auto;
+}
+
+#aside-right label {
+  display: inline-block;
+  width: 20px;
+  text-align : left;
+  margin-right : 10px;
+  margin-bottom: 3px;
+}
+
+#aside-right input {
+  width : 100px;
+}
+
+input.input-radio {
+  width : 50px;
+}
+
+button {
+  background-color: white;
+  border: 1px solid black;
+  padding : 5px;
+}
+
+footer {
+  width : 100%;
+  clear : both;
+  position: relative;
+  bottom: 0px;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  user-select: none;
+  border-top : 1px solid #ccc;
+}
+
+#div-total {
+  min-width: : 700px;
+  /* background-color : gray; */
+  margin : 0 auto;
+}

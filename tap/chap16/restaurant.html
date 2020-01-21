@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html> 
+<html> 
+	<head>
+  <meta charset="utf-8">	
+	<title>레스토랑 추천 앱</title> 
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+
+</head> 
+<body> 
+<div id="show_rest" data-role="page" data-add-back-btn="true">
+	
+	<div data-role="header"> 
+		<h1> 레스토랑 추천</h1>
+	</div> 
+	
+	<div data-role="content">
+	<div class="ui-grid-a" id="restau_infos">	
+		<div class="ui-block-a">
+		<h1> 퍼 세이</h1>
+		<p><strong>  강남에 있는 뉴욕 퍼세이 레스토랑</strong></p>
+		<p> 메뉴: </p>
+			<ul> 
+				<li> 파스타</li>
+				<li> 해물리조또 </li>
+				<li> 안심스테이크 </li>
+			</ul>			
+		</div>		
+		<div class="ui-block-b">
+		<p><img src="rest01.jpg" alt=""/></p>
+		<p><a href="http://www.google.co.kr" rel="external" data-role="button">웹사이트</a></p>
+		</div>
+	</div><!-- /grid-a -->
+	<hr/>
+	
+	<div class="ui-grid-a" id="contact_infos">	
+		<div class="ui-block-a">
+		<h2> 주소</h2>
+		<p>서울 강남구 역삼동</p>
+		<p> 120번지	</p>		
+		</div>		
+		<div class="ui-block-b">
+		<img src="map01.jpg" alt=""/>
+		</div>
+	</div><!-- /grid-a -->
+	<div id="contact_buttons">	
+		<a href="https://maps.google.co.kr/maps?q=%EC%84%9C%EC%9A%B8&ie=UTF8&hnear=Seoul&t=m&z=11" data-role="button" data-icon="maps"> 구글 맵에서 찾기</a> 	
+		<a href="tel:021234567"  data-role="button" data-icon="tel"> 전화번호 </a>	
+	</div>	
+	<hr/>
+	
+	 <div id="notation">
+                <form>
+                    <label for="select-choice-0" class="select">
+                        <h2>사용자 평가 </h2>
+                    </label>
+                    <select name="note_utilisateur" id="note_utilisateur" data-native-menu="false" data-theme="c">
+                        <option value="one" class="one">추천할 수 없음 </option>
+                        <option value="two" class="two">보통 </option>
+                        <option value="three" class="three" selected="selected">좋음 </option>
+                        <option value="four" class="four">아주좋음 </option>
+                    </select>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /page -->
+</body>
+</html>

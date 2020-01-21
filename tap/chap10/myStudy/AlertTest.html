@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ko">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+</head>
+
+<body>
+  <div id="ex_js_syntax">
+    <script type="text/javascript" language="javascript">
+      <!--
+      function btn_js_alert_click() {
+        /* alert(문자열) */
+        alert("알림창 눌렀어요");
+      }
+
+      function btn_js_confirm_click() {
+        /* confirm(문자열, 초기값) */
+        var check = confirm("확인 또는 취소 버튼");
+        /* if(check == true) else false */
+        if (check) alert("확인버튼 클릭");
+        else alert("취소버튼 클릭");
+      }
+
+      function btn_js_prompt_click() {
+        /* prompt(문자열, 초기값) */
+        var name_value = prompt("이름은?", "로이");
+        /* if(name_value == true) else false */
+        if (name_value) alert("이름은 " + name_value + "입니다.");
+        else alert("질문창 취소버튼 클릭 했습니다.");
+      }
+      //
+      -->
+    </script>
+    <form name="input_type" id="input_type" method="post">
+      <!-- 예제 박스에선 안됨 => form태그안에 form태그있으면 지워짐~ㅠ.ㅠ -->
+      <input type="button" name="btn_js_js_alert" onclick="javascript:alert('버튼을 클릭 했어요');" value="버튼" />
+      <br />
+      <input type="button" name="btn_js_alert" id="btn_js_alert" onclick="btn_js_alert_click();" value="알림창" />
+      <br />
+      <input type="button" name="btn_js_confirm" id="btn_js_confirm" onclick="btn_js_confirm_click();" value="확인창" />
+      <br />
+      <input type="button" name="btn_js_prompt" id="btn_js_prompt" onclick="btn_js_prompt_click();" value="질문창" />
+      <br />
+    </form>
+  </div>
+</body>
+
+</html>

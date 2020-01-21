@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script>
+    arr = ["hello", 10, 32.6, true];
+    function find(arr, value) {
+      for(var i = 0; i < arr.length; i++) {
+        if (arr[i] == value) {
+          return i;
+        }
+      }
+      return "해당하는 값이 없습니다.";
+    }
+    alert(find(arr, "hello"));
+  </script>
+
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+﻿<html>
+<head>
+    <title>온도 변환기</title>
+</head>
+
+<body>
+    <table border="3">
+        <tr>
+            <td>섭씨온도</td>
+            <td>화씨온도</td>
+
+        </tr>
+        <script>
+            for (celsius = 0; celsius <= 10; celsius = celsius + 1) {
+                document.write("<tr><td>" + celsius + "</td><td>"
+                + ((celsius * 9.0 / 5) + 32) + "</td></tr>");
+            }
+        </script>
+    </table>
+</body>
+</html>

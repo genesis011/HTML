@@ -1,0 +1,9 @@
+#forgot_id_pw{background-image: url('../img/forgot_id.jpg'); width: 100%; height: 642px;}
+.forgot_id_pw_form{width: 80%; height: 642px;}
+.forgot_id_pw_form table{background-color: rgba(189, 189, 189, 0.5); margin-left: 40%; border-collapse: collapse; width:43%; border-bottom: 1px solid rgba(189, 189, 189, 0.5);}
+#id_pw_tbl th{width: 21.5%; padding: 10px 0; font-size: 18px; background-color: rgba(189, 189, 189, 0.5); cursor: pointer;}
+#id_pw_tbl th:hover{opacity: 0.8;}
+#id_pw_tbl input{font-size: 20px;}
+#sub{width: 13.5%; height: 29px; background-color: white; border: 1px solid #464646;font-weight: bold; cursor: pointer;}
+#sub:hover{background-color: #EAEAEA; }
+#id_pw_tbl form{margin-left: 20%;}

@@ -1,0 +1,15 @@
+.login_div{text-align: center; width: 50%; height: 430px; margin-left: 30.5%; margin-top: 2%; margin-bottom: 2%;}
+.login_div table{margin-left: 17%;}
+.login_div td{height: 30px;}
+.login_div input{height: 35px; font-size: 20px;}
+#login_button{width: 85px; height: 85px; font-size: 20px; border-radius:4%;}
+#login_button:hover{width: 85px; height: 85px; font-size: 20px; background-color:#35cc2b;cursor: pointer;}
+.login_div a:hover{color: black;}
+.login_div a{color: black; text-decoration: none;}
+#login h2{margin-left: 19%;}
+#id_storage input{height: 13px;}
+#empty_row{height: 10px}
+#id_storage b{font-size: 18px;}
+.login_div h3{padding-right:5%; margin-right: 17%;}
+.login_div button{background-color: white; border: 1px solid black;}
+.login_div button:hover{background-color: #EAEAEA; border: 1px solid black;}

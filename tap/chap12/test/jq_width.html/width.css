@@ -1,0 +1,11 @@
+div {
+  width: 60px;
+  height: 50px;
+  float: left;
+  margin: 5px;
+  background: red;
+}
+
+.next {
+  background: blue;
+}

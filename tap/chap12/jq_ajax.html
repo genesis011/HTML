@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script src="http://code.jquery.com/jquery-1.10.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("button").click(function () {
+                $("#target").load("testfile1.txt");
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <div id="target" style="width: 300px; height: 60px; border: solid 1px black">
+    </div>
+    <button>Get Data</button>
+
+</body>
+</html>

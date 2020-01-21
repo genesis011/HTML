@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <!-- <script>
+    var sum = 0;
+
+    var startTime = new Date().getTime();
+    for (var i = 1; i <= 1000000; i++) {
+      sum += i;
+    }
+    var endTime = new Date().getTime();
+
+    console.log(endTime - startTime);
+  </script> -->
+  <!-- <script>
+    var sum = 0;
+
+    console.time("calculatingTime")
+    for (var i = 1; i <= 1000000; i++) {
+      sum += i;
+    }
+    console.timeEnd('calculatingTime');
+  </script> -->
+  <!-- <script>
+    process = (function() {
+      var d = new Date();
+      var n = d.getTime();
+      var sum = 0;
+      for (var i = 1; i <= 1000000; i++) sum += i;
+      var _d = new Date();
+      var _n = _d.getTime();
+      return n - _n;
+    })();
+    alert(process);
+  </script> -->
+
+  <script>
+    function test() {
+      var i;
+      var j = 0;
+      var sDate = new Date().getTime();
+
+      for (i = 0; i < 10000000; i++){
+        j += i;
+      }
+      var eDate = new Date().getTime();
+      var resDate = eDate - sDate;
+
+      document.writeln(resDate + "밀리초가 걸렸음!");
+    }
+    test();
+  </script>
+  
+</head>
+
+<body>
+
+
+</body>
+
+</html>

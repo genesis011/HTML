@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script type="text/javascript">
+    function check(elem, msg) {
+      var exp = /^[0-9]+$/;
+      if (elem.value.math(exp)){
+        return;
+      } else {
+        alert(msg);
+        elem.focus();
+        return false;
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <p>숫자를 입력하시오.</p>
+  <input type="text" id="num">
+  <input type="button" onclick="check(document.getElementById('num'), 숫자가 아닙니다.)" value="입력완료">
+</body>
+
+</html>

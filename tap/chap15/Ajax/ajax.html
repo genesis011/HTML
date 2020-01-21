@@ -1,0 +1,62 @@
+﻿<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>Hello Ajax</title>
+<script type="text/javascript">
+var xhr = null;
+
+function getXMLHttpRequest() {
+    if (window.ActiveXObject) {
+        try {
+            return new ActiveXObject("Msxml2.XMLHTTP");//IE 상위 버젼
+        } catch (e1) {
+            try {
+                return new ActiveXObject("Microsoft.XMLHTTP");//IE 하위 버젼
+            } catch (e2) {
+                return null;
+            }
+        }
+    } else if (window.XMLHttpRequest) {
+        return new XMLHttpRequest();//IE 이외의 브라우저(FireFox 등)
+    } else {
+        return null;
+    }
+}// XMLHttpRequest 객체 얻기
+
+ 
+
+function requestHello(URL) {
+    param = f.name.value;
+    URL = URL + "?name=" + encodeURIComponent(param);//한글 처리
+    xhr = getXMLHttpRequest();//XMLHttpRequest 객체 얻기
+    xhr.onreadystatechange = responseHello;//콜백 함수  등록
+    xhr.open("GET", URL, true);//연결
+    xhr.send(null);//전송
+}// 서버에 요청
+
+ 
+
+function responseHello() {
+    if (xhr.readyState == 4) {//완료
+        if (xhr.status == 200) {//오류없이 OK
+            var str = xhr.responseText;//서버에서 보낸 내용 받기
+            document.getElementById("message").innerHTML = str;//보여주기    
+        } else {
+            alert("Fail : " + xhr.status);
+        }
+    }
+}// 응답
+</script>
+</head>
+<body>
+<form name="f">
+<input type="text" name="name">
+<input type="button" value="입력" onclick="requestHello('ajaxs.jsp')">
+</form>
+<div id="message"></div>
+</body>
+</html>
+
+
+
+ 

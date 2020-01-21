@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        window.onload = function () {
+            if (typeof (EventSource) !== "undefined") {
+                var source = new EventSource("test.jsp");
+                source.onmessage = function (event) {
+                    document.getElementById("result").innerHTML += event.data + "<br>"
+                };
+            }
+            else {
+                alert("웹브라우저가 서버 전송 이벤트를 지원하지 않음!");
+            }
+        }
+    </script>
+
+</head>
+<body>
+    <h1>서버 전송 이벤트</h1>
+    <output id="result"></output>
+</body>
+</html>

@@ -1,0 +1,13 @@
+﻿h1, p {    
+
+     font-family: serif;
+     color:       black;
+}
+h1 {    
+     border-bottom: 1px solid gray;
+     color:       red;
+}
+body {
+
+     background-color: yellow;
+}

@@ -1,0 +1,74 @@
+
+body, td, textarea {
+  font-size: 9pt;
+  font-family: 굴림;
+}
+
+.back {
+  background: #fff2ff
+}
+
+.ta {
+  border: 1px solid #CCCCCC;
+  width: 520;
+}
+
+.t0 {
+  border-bottom: 1px solid #CCCCCC;
+  font-weight: bold;
+  text-align: center;
+  background-color: skyblue;
+}
+
+.t1 {
+  border-bottom: 1px solid #CCCCCC;
+  border-right: 1px solid #CCCCCC;
+  text-align: center;
+  background-color: skyblue;
+  width: 100
+}
+
+.t2 {
+  border-bottom: 1px solid #CCCCCC;
+}
+
+.t3 {
+  border-right: 1px solid #CCCCCC;
+  text-align: center;
+  background-color: skyblue;
+}
+
+.in {
+  border: 1px solid #DADADA;
+  font-size: 9pt;
+  font-family: 굴림;
+}
+
+.bu {
+  border: 1px solid #CCCCCC;
+  background-color: #fafafa;
+  width: 50;
+  height: 20;
+  font-size: 9pt;
+  text-align: center
+}
+
+.in1 {
+  border-width: 0px 0px 1px 0px;
+  border-style: solid;
+  border-color: #DADADA;
+  font: 9pt 굴림;
+  height: 18
+}
+
+.d {
+  border: 1px solid #CCCCCC;
+  width: 540;
+  padding: 10
+}
+
+a {
+  font-size: 9pt;
+  text-decoration: none;
+  color: darkblue
+}

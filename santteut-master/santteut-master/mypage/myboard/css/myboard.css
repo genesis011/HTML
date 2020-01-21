@@ -1,0 +1,25 @@
+#myboard_list{height:1000px;max-height:2000px;width:77%; margin-left:11.8%;}
+#title, #sub_title{margin-bottom:9px;}
+#i_field{border-bottom: 1px solid grey; border-left: 1px solid grey; border-right: 1px solid grey; border-top:1px solid black;}
+#i{font-size:40px; color:#2F9D27; float:left; padding-left:20px;padding-right:20px;}
+#i_div_ul{float:left;}
+#i_div_ul > ul{list-style-type:circle;}
+#search_field{background-color:#f2f2f2; border:1px solid #f2f2f2; font-size:14px;padding:10px;}
+#search_btn{color:white; border-radius: 3px; margin-bottom:0.5%; width: 85px; height: 36px; font-weight: bold; margin-right: 5px; cursor: pointer; border: 1px solid #2F9D27; background-color: #2F9D27;}
+#search_btn:hover {background-color: #429161;}
+#search_date{margin-left: 60px;}
+.date_select{width :100px; padding:10px; margin:2px;}
+#list_field{border: none; margin:0;padding:0;}
+#list_tbl_head{border-collapse: collapse; width:100%; font-size: 13.5px; border:1px solid #dedede; text-align: center;}
+#list_tbl_head td{font-weight: 600; height:37px; background-color: #f2f2f2; border-right:1px solid #dedede;}
+#list_tbl_head td:first-child{background-color: white;border:1px solid #3d3d3d; border-bottom-color: white;}
+#list_tbl_head td:hover {cursor: pointer; text-decoration: underline;}
+#list_tbl_body {width:100%; -webkit-border-horizontal-spacing: 0px;-webkit-border-vertical-spacing: 0px;border-top-width: 0px;border-right-width: 0px;border-bottom-width: 0px;border-left-width: 0px;font-size: 0.89em; margin: 20px 0; border-collapse: separate; border: 1px solid #3d3d3d; border-bottom-color:#dedede; text-align: center;}
+#list_tbl_body tr:first-child{font-weight:bolder; color:#3d3d3d; background-color:#f2f2f2; }
+#list_tbl_body td{width: 120px; padding:1%; border-left:1px solid #dedede;border-bottom:1px solid #dedede;}
+#list_tbl_body {border-left:none;border-right:none;}
+#list_tbl_body tr td:first-child{border-left:none;}
+#list_tbl_body tr td:last-child{border-right:none;}
+.symbol_greater_than{margin-right: 3px;background-color:#1ae134; color:white; padding-bottom: 1px; font-size: 12px; padding-left:4px; padding-right:4px; border-radius:3px;}
+a{cursor:pointer; text-decoration: none;color: black;}
+a:visited{color: black;}

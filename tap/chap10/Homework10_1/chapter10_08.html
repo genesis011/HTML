@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script type="text/javascript">
+    function change_img(image1, image2) {
+      document.getElementById(image1).src = image2;
+    }
+  </script>
+</head>
+
+<body>
+<img src="image1.png" id="img" width="200" height="200" onclick="change_img(id, 'image2.png')">
+<p>스위치를 클릭하여 보세요!</p>
+</body>
+
+</html>

@@ -1,0 +1,1677 @@
+윈도우, 명령프롬프트에서 MySQL을 다루는 명령어를 요약한 자료입니다.
+
+;;MySQL에 연결
+mysql -u사용자 -p
+mysql -u root -p
+
+;;네트워크에 연결
+mysql -h호스트 -u사용자 -p
+mysql -h 192.168.0.10 -u std1 -p
+
+;;데이터베이스 목록 보기
+show databases;
+
+;; 데이터베이스 선택
+use db명
+use db1
+
+;;테이블 목록
+show tables
+
+;;데이터베이스 테이블 정보 조회
+SHOW TABLE STATUS;
+
+
+;;데이블 구조 보기
+desc 테이블명
+
+
+;;두개의 테이블 만들기 (sqldb)
+drop database if exists sqldb;
+create database sqldb;
+use sqldb;
+
+DELIMITER //
+create procedure myProcedure()
+begin
+	CREATE TABLE userTbl 
+	( userID  	CHAR(8) NOT NULL PRIMARY KEY, 
+	  name    	VARCHAR(10) NOT NULL, 
+	  birthYear INT NOT NULL, 
+	  addr	  CHAR(10) NOT NULL, 
+	  mobile1	CHAR(3), 
+	  mobile2	CHAR(8), 
+	  height    	SMALLINT,  
+	  mDate    	DATE 
+	)ENGINE=InnoDB DEFAULT CHARSET=utf8;  --한글이 깨지지 않고 입력됨.
+
+	CREATE TABLE buyTbl 
+	(  num 		INT AUTO_INCREMENT NOT NULL PRIMARY KEY, 
+	   userID  	CHAR(8) NOT NULL, 
+	   prodName 	CHAR(6) NOT NULL,
+	   groupName 	CHAR(4)  , 
+	   price     	INT  NOT NULL,
+	   amount    	SMALLINT  NOT NULL, 
+	   FOREIGN KEY (userID) REFERENCES userTbl(userID)
+	)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+	
+	INSERT INTO userTbl VALUES('LSG', '이승기', 1987, '서울', '011', '1111111', 182, '2008-8-8');
+	INSERT INTO userTbl VALUES('KBS', '김범수', 1979, '경남', '011', '2222222', 173, '2012-4-4');
+	INSERT INTO userTbl VALUES('KKH', '김경호', 1971, '전남', '019', '3333333', 177, '2007-7-7');
+	INSERT INTO userTbl VALUES('JYP', '조용필', 1950, '경기', '011', '4444444', 166, '2009-4-4');
+	INSERT INTO userTbl VALUES('SSK', '성시경', 1979, '서울', NULL  , NULL      , 186, '2013-12-12');
+	INSERT INTO userTbl VALUES('LJB', '임재범', 1963, '서울', '016', '6666666', 182, '2009-9-9');
+	INSERT INTO userTbl VALUES('YJS', '윤종신', 1969, '경남', NULL  , NULL      , 170, '2005-5-5');
+	INSERT INTO userTbl VALUES('EJW', '은지원', 1972, '경북', '011', '8888888', 174, '2014-3-3');
+	INSERT INTO userTbl VALUES('JKW', '조관우', 1965, '경기', '018', '9999999', 172, '2010-10-10');
+	INSERT INTO userTbl VALUES('BBK', '바비킴', 1973, '서울', '010', '0000000', 176, '2013-5-5');
+
+	INSERT INTO buyTbl VALUES(NULL, 'KBS', '운동화', NULL   , 30,   2);
+	INSERT INTO buyTbl VALUES(NULL, 'KBS', '노트북', '전자', 1000, 1);
+	INSERT INTO buyTbl VALUES(NULL, 'JYP', '모니터', '전자', 200,  1);
+	INSERT INTO buyTbl VALUES(NULL, 'BBK', '모니터', '전자', 200,  5);
+	INSERT INTO buyTbl VALUES(NULL, 'KBS', '청바지', '의류', 50,   3);
+	INSERT INTO buyTbl VALUES(NULL, 'BBK', '메모리', '전자', 80,  10);
+	INSERT INTO buyTbl VALUES(NULL, 'SSK', '책'    , '서적', 15,   5);
+	INSERT INTO buyTbl VALUES(NULL, 'EJW', '책'    , '서적', 15,   2);
+	INSERT INTO buyTbl VALUES(NULL, 'EJW', '청바지', '의류', 50,   1);
+	INSERT INTO buyTbl VALUES(NULL, 'BBK', '운동화', NULL   , 30,   2);
+	INSERT INTO buyTbl VALUES(NULL, 'EJW', '책'    , '서적', 15,   1);
+	INSERT INTO buyTbl VALUES(NULL, 'BBK', '운동화', NULL   , 30,   2);
+
+	SELECT * FROM userTbl;
+	SELECT * FROM buyTbl;
+
+end //
+DELIMITER ;
+
+call myProcedure();
+
+//SELECT==================================================================
+
+;;SELECT 구문의 예제(DB명: db1, 테이블명: tbl1, tbl2, ....)
+;; select -> from ->where ->group by ->having ->order by -> limit 순서기억할것
+
+select * from usertbl where name='김경호';
+
+-- 키가 180 이상이고 키가 183 이하인사람 아이디, 이름을 출력하시오
+Select userID, name from userTbl where height >= 180 AND  height <= 183;
+Select userID, name from userTbl where height BETWEEN 180 AND 183;
+
+-- 주소가 경남 이거나, 전남이거나, 경북인 사람의 이름과 주소와 키를 출력하시오.
+SELECT Name,addr FROM userTbl WHERE addr='경남' OR addr='전남' OR addr='경북';
+SELECT Name,addr FROM userTbl WHERE addr IN ('경남','전남','경북');
+
+-- 이름이 김씨로 시작되는 사람의 이름과 키를 알려주시오. 
+select name,height from usertbl where name like '김%';
+select name,height from usertbl where name like '_종신';
+
+;;하위쿼리=서브쿼리
+;;select 김경호보다 키가 크거나 같은 사람의 이름과 키 출력
+;;WHERE 조건에 김경호의 키를 직접 써줘야 함
+SELECT Name,height FROM userTBL WHERE height > 177;
+SELECT Name,height FROM userTbl WHERE height >(SELECT height FROM userTbl WHERE Name = '김경호');
+
+;;select 서브쿼리의 결과가 둘 이상이 되면 에러 발생
+SELECT Name, height FROM userTbl WHERE height >
+ (SELECT height FROM userTbl WHERE addr = ‘경남＇);
+
+;;select 윗문장에러인데 그런데 꼭 사용하고 싶다면 any를 사용하면됨
+;; 둘 중에 하나만 처리됨
+SELECT Name, height FROM userTbl WHERE height > 
+any (SELECT height FROM userTbl WHERE addr = ‘경남＇); 
+
+;;select any 에 = 를 사용하면 거기에 해당되는것만 출력한다.
+SELECT Name, height FROM userTbl WHERE height = 
+any (SELECT height FROM userTbl WHERE addr = ‘경남＇);
+
+;;select IN을 사용하면 윗에있는 문장과 동일하다.
+SELECT Name, height FROM userTbl WHERE height 
+IN (SELECT height FROM userTbl WHERE addr = ‘경남＇); 
+
+;;정렬하기(정렬하기는 하지 않는게 권장사항임을 참고로 할것)
+select name, mdate from usertbl order by mdate asc ;
+select name, mdate from usertbl order by mdate desc;
+select name, height from usertbl order by height desc; 
+//1차적으로 키로 정렬하고 그리고 키가 같으면 이름으로 정렬한다.
+select name, height from usertbl order by height desc, name asc;
+
+;;중복되는것 제거하기
+select distinct addr from usertbl;
+
+;;select 갯수 제한 - limit
+use employees;
+select emp_no, hire_date from employees order by hire_date asc limit 5;
+select * from employees limit 100;
+// 100번부터 5개까지 보여달라.
+select emp_no, hire_date from employees order by hire_date asc limit 100, 5;
+
+;;5번째부터 10개로 제한
+select * from employees limit 10 offset 5;
+
+;;테이블 복사하기
+use sqlDB;
+create table buytbl2 (select * from buytbl);
+select * from buytbl2;
+
+;;그룹으로(유저아이디)로 평균합계 구하기
+select userid, sum(amount) as '평균합계' from buytbl group by userid;
+
+;;그룹으로(유저아이디)로 두개의 필드를 곱해서 결과를 출력하기 price*amount
+select userid, sum(price*amount) AS "총 구매액" from buytbl group by userid;
+//제일 구매액이 많은사람부터 보여주는것.
+select userid, sum(price*amount) AS "총 구매액" from buytbl group by userid
+	order by sum(price*amount) desc;
+
+;;집계함수
+;; 합, 평균, 최대값, 최소값
+select sum(amount) from buytbl;
+select avg(amount) from buytbl;
+select max(amount) from buytbl;
+select min(amount) from buytbl;
+
+;;평균구매개수구하기
+select avg(amount) as '평균구매개수' from buytbl;
+
+;;그룹으로(유저아이디)로 평균구매개수 구하기
+select userid, avg(amount) as '평균구매개수' from buytbl group by userid;
+
+;; 가장키큰사람과 가장작은사람 구하기
+select max(height), min(height) from usertbl;
+select name, height from usertbl where height =(select max(height) from usertbl)
+	or height =(select min(height) from usertbl);
+
+;;카운트
+select count(*) from usertbl;
+select count(mobile1) as '휴대폰이 있는 사용자'  from usertbl; 
+select count(*) from employees.employees;
+select count(*) from usertbl where mobile1 is not NULL; --(조심할것)
+select count(*) from usertbl where mobile1 is NULL; --(조심할것)
+
+//제일 구매액이 1000만원 이상 사람들을 보여주는것.
+//where sum(price*amount) > 1000  --wher 조건은 그룹단위함수를 쓸수가 없음.
+select userid, sum(price*amount) AS "총 구매액" from buytbl group by userid
+	havig sum(price*amount) > 1000 order by sum(price*amount) desc;
+ 
+
+;;select NULL 검색(< > <= >= = 안된다. )(is, is not)
+select * from tbl1 where birthday is NULL;
+
+;;select 와일드카드 검색
+select * from usertbl where name like '김%';
+select * from usertbl where name like '%범%';
+
+;;자동으로 몆번까지 넣었나를 확인하고 싶을때 : 3이 출력
+Select last_insert_id(); 
+
+;;반올림 - round(A, 2): A값을 소수 2자리 출력
+select ROUND(amount,2) from buytbl;
+
+;; 문자열 결합 - concat
+select concat(userid,price) from buytbl;
+
+;;부분 문자열 - substring
+select substring('12345', 2, 3); --> 2번때 부터 3문자
+
+;;앞뒤 공백 제거
+select trim(name) from usertbl;
+
+;;문자열 길이
+select character_length(name) from usertbl;
+
+;;시스템 날짜 확인
+select current_timestamp;
+select current_date;
+
+;;연산자: =, <, >, <=, >=, <>
+select * from buytbl;
+select no, userid from buytbl;
+select * from buytbl where num < 10;
+select * from buytbl where num = 10;
+select * from buytbl where num=1 or num=3;
+select * from buytbl where num > 6 and price >= 10;
+select * from tbl1 where NOT(num=1 or num=3);
+
+//SQL 분류==================================================================
+;;sql 분류
+- DML(Data Manipulation Language) 데이터조작어
+ :SELECT, INSERT, UPDATE, DELETE , TRANSACTION 
+- DDL(Data Definition Language) 데이터정의어 
+ : CREATE, DROP, ALTER, TRANSACTION 발생시키지 않은 (ROLLBACK, COMMIT)
+ : INSERT , UPDATE, DELETE 는 트랜잭션이 끝나지 않으면 ROLLBACK이 가능하지만
+ : CREATE, DROP, ALTER는 ROLLBACK이 불가능하다.    
+- DCL(Data Control Language) 데이터 제어언어(사용자 권한부여함)
+ :GRANT, REVOKE, DENY  , TCL분야는 여기에 속함.
+
+
+//INSERT===================================================================
+
+;;insert 행추가
+Use sqldb;
+Create table testTbl1 (
+	id int, 
+	username char(3), 
+	age int)
+	ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+Insert into testTbl1(id, username, age) values (1,'김재록', 25);
+Insert into testTbl1 values (10,'김하영', 45);
+
+;; 해당되는항목만 넣고 싶을경우.
+Insert into testTbl1(id, userName) values (2, '이율'); 
+
+;; 순서를 바꿔도 가능함.
+Insert into testTbl1(username, age, id) values (‘이우주’, 26, 3); 
+
+;; 순서적으로 자동으로 입력하기
+Use sqldb;
+Create table testTbl2 (
+	id int auto_increment primary key, 
+	username char(3), 
+	age int)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into testtbl2 values (null, '지민', 25);
+insert into testtbl2 values (null, '유나', 22);
+insert into testtbl2 values (null, '유경', 21);
+select * from testtbl2;
+
+;; 어디까지 입력했는지 알고 싶을때
+select LAST_INSERT_ID();
+
+;; 100번부터 입력하고 싶을때
+ALTER TABLE testtbl2 AUTO_INCREMENT=100;
+insert into testtbl2 values (null, '신혜지', 23);
+select * from testtbl2;
+
+
+;;1000번부터 3씩 증가해서 입력하기
+Use sqldb;
+Create table testTbl3 (
+	id int auto_increment primary key, 
+	username char(3), 
+	age int)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE testtbl3 AUTO_INCREMENT=100;
+SET @@auto_increment_increment=3;
+insert into testtbl3 values (null, '주석', 25);
+insert into testtbl3 values (null, '동현', 22);
+insert into testtbl3 values (null, '영민', 21);
+select * from testtbl3;
+
+;;insert 문 대량으로 입력하기
+Use sqlDb;
+Create table testTbl4 (
+	id int, 
+	fname varchar(50), 
+	lname varchar(50)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+Insert into testTbl4 
+	select emp_no, first_name, last_name 
+	from employees.employees;
+select * from testtbl4;
+
+;; 테이블생성과 동시에 내용까지 가져오기
+create table testTbl5 (
+	select emp_no, first_name, last_name 
+		from employees.employees
+);
+select * from testTbl5;
+
+;;delete - 행 삭제
+delete from usertbl where num = 5;
+
+;; Aamer 이름을 가진자 삭제하기
+delete from testtbl4 where fname ='Aamer';
+
+;; Aamer 이름을 가진자 삭제하기(5명만 지우기)
+delete from testtbl4 where fname ='Aamer' LIMIT 5;
+
+//update-----------------------------------------------------------------
+
+;; update - 데이터 갱신(전체를 변경하는것이 아닌경우는 where 절을써줄것
+update testtbl4 set lname='없음' where fname='kyoichi';
+
+;; update - 모두 적용하는것  
+update  buyTbl set price = price * 1.5; 
+
+;; 30만건씩 테이블 3개 만들기
+USE sqldb;
+create table bigtbl1 (select * from employees.employees);
+create table bigtbl2 (select * from employees.employees);
+create table bigtbl3 (select * from employees.employees);
+
+;;삭제하기 기능
+delete from bigtbl1;  //제일 시간이 많이 걸림
+drop table bigtbl2;	//구조까지 없애버림
+truncate table bigtbl3  //구조를 건드리지 않음
+
+;; 3건만 가져와서 테이블 만들기(pk는 복사되지 않아서 직접 넣어줘야됨)
+use sqldb;
+create table membertbl (
+	select userid, name, addr 
+		from usertbl limit 3
+);
+
+alter table membertbl ADD constraint pk_membertbl primary key (userid);
+;;다른방법으로는 
+alter table membertbl ADD primary key (userid);
+select * from membertbl
+
+;;이미전에 데이터가 들어가 있고,'bbk' pk가 중복되므로 들어가지 않음.
+Insert into memberTBL values('bbk','비비코',‘미국’);//pk가 중복되어서 입력안됨.
+Insert into memberTBL values(‘sjh’,‘서장훈’,‘서울’);//윗내용때문에 입력안됨
+Insert into memberTBL values(‘hjy’,‘현주협’,‘경기’);// 윗내용때문에 입력안됨
+Select * from memberTBL;//  pk중복으로 내용이 변화없음
+
+
+;; 이렇게 처리하면 중복된 문장은 안들어가고 pk가 중복되지 않은 다음문장 들어감
+Insert  IGNORE into memberTBL values(‘bbk’, ‘비비코’, ‘미국’);
+//IGNORE는 앞에 에러를 무시하고 입력해주세요….
+Insert IGNORE  into memberTBL values(‘sjh’, ‘서장훈’, ‘서울’);
+Insert IGNORE into memberTBL values(‘hjy’, ‘현주협’, ‘경기’);
+// 비비코만 빼고 나머지는 잘들어감.
+Select * from memberTBL; 
+
+// pk가 중복이 되어도 name과 addr 은 바꿔서 집어넣어라.
+Insert into memberTBL values(‘bbk’, ‘비비코1’, ‘미국1’) 
+	on duplicate key update name=‘비비코1’ ,addr=‘미국1’;
+Select * from memberTBL;
+
+;; 테이블생성
+create table tbl2(
+	id  int not null primary key,
+	no  integer not null,
+	name  varchar(20)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create table loanReturnTBL(
+    no	int not null AUTO_INCREMENT PRIMARY key,
+    id 		int not null,
+    cID		char(8) not null,
+    loanDate 	date not null,
+    returnDate	date not null,
+    FOREIGN KEY (id) REFERENCES tbl2(id),
+    FOREIGN KEY (cID) REFERENCES usertbl(userID)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+;;FOREIGN KEY 삭제하는방법 제약조건을 써서 제거한다. 
+alter table loanreturntbl drop FOREIGN KEY loanreturntbl_ibfk_1;
+
+;;제약조건을 확인하는 방법
+select  * 
+	from information_schema.TABLE_CONSTRAINTS where TABLE_NAME='loanReturnTBL';
+
+;;FOREIGN KEY 추가하는방법 (제약조건을 써주면 된다. 안써주면 자동으로 DB가 만든다
+alter table loanreturntbl 
+ADD CONSTRAINT fk_tbl2_id FOREIGN KEY(id) REFERENCES tbl2(id);
+
+
+;; select 문을 이용해서 테이블 create 단 select 로 복사할때는 PK나 FK는 복사하지 않음
+Use sqlDB;
+Create table buyTbl3 (select * from buyTbl);
+Select * from buyTbl3;
+
+ALTER table buytbl3 MODIFY num int not null primary key;
+
+;;테이블 삭제
+drop table 테이블명;
+
+;;테이블에 열 추가
+alter table buytbl3 add ccc integer not null;
+
+
+;;열 이름 변경
+alter table 테이블명 change 기존_열이름 신규_열정의;
+alter table buytbl3 CHANGE ccc ddd integer default 0;
+alter table buytbl3 ADD constraint fk_usertbl_userid FOREIGN KEY(userID) REFERENCES usertbl(userid);
+
+
+;;열 삭제
+alter table 테이블명 drop 열이름;
+alter table buytbl3 DROP ddd;
+
+;;열추가 위치지정(여기서 column은 생략해도 됨.)
+ALTER TABLE buytbl3 
+	ADD COLUMN count1 SMALLINT(6) NOT NULL AFTER `userID`;
+
+ALTER TABLE buytbl3 
+	ADD COLUMN `count` SMALLINT(6) NOT NULL AFTER `count1`,
+	ADD COLUMN `log` VARCHAR(12) NOT NULL AFTER `count`,
+	ADD COLUMN `status` INT(10) UNSIGNED NOT NULL AFTER `log`;
+
+;;테이블 이름 바꾸기
+ALTER table buytbl3  RENAME buytbl4 ;
+
+;;컬럼삭제
+ALTER table buytbl4 DROP count1;
+
+ 
+;;컬럼 속성 추가
+ALTER table buytbl4 ADD colname int not null;
+ALTER table buytbl4 ADD colname1 int AUTO_INCREMENT not null PRIMARY key; 
+
+;;컬럼 속성 수정
+ALTER table buytbl4 MODIFY colname1 int not null ;
+
+;;기본키삭제
+ALTER table buytbl4  DROP PRIMARY KEY;
+
+
+;;중복을 해서 primary key 선정하기 
+Use sqlDB;
+Create table testTbl2(
+	id int not null,
+	username char(3) not null,
+	age int
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+desc testtbl2;
+
+ALTER table testtbl2 add CONSTRAINT pk_memberTBL PRIMARY KEY (id,username);
+//1월28일--------------------------------------------------------------------
+
+;;인덱스 (성능개선) 성능확인, 인덱스설정, 인덱스삭제, 
+use sqldb;
+create table indexTBL(
+    firstName 	varchar(14),
+    lastName 	varchar(16),
+    hireDate	date
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT into indexTBL
+	(select 
+	first_name, last_name, hire_date
+	from employees.employees
+    	limit 500);
+
+select * from indexTBL where firstName = 'Mary';    
+--인덱스 설정
+create INDEX idx_indexTBL_firstName on indexTBL(firstName);
+--인덱스 확인하기
+SHOW INDEX FROM indexTBL; 
+--성능 확인
+select * from indexTBL where firstName = 'Mary';
+--인덱스 삭제
+ALTER TABLE indextbl DROP INDEX idx_indexTBL_firstName;
+
+
+;; 뷰 (가상테이블을 만든다. -> 아르바이트생)
+Create Database shopDB;
+use shopDB;
+
+CREATE TABLE membertbl (
+  memberID char(8) NOT NULL,
+  memberName char(5) NOT NULL,
+  memberAddress char(20) DEFAULT NULL,
+  PRIMARY KEY (memberID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `membertbl` VALUES ('aaaa','연아','인천시 박촌동');
+INSERT INTO `membertbl`  VALUES ('dang','당당이','경기도 부천시 중동');
+INSERT INTO `membertbl`  VALUES ('han','한주연','인천 남구 주안동');
+INSERT INTO `membertbl`  VALUES ('jee','지운이','서울 은평구 증산동');
+INSERT INTO `membertbl`  VALUES ('sang','상길이','경기 성남시 분당구');
+
+CREATE VIEW view_memberTBL
+	as  select memberName, memberAddress from membertbl;
+    
+select * from view_membertbl;
+
+
+;; 프로시져(함수기능부여함)
+
+use sqlDB;
+
+
+DELIMITER //
+create procedure myProcedure()
+begin
+				
+	CREATE TABLE userTbl 
+	( userID  	CHAR(8) NOT NULL PRIMARY KEY, 
+	  name    	VARCHAR(10) NOT NULL, 
+	  birthYear INT NOT NULL, 
+	  addr	CHAR(2) NOT NULL, 
+	  mobile1	CHAR(3), 
+	  mobile2	CHAR(8), 
+	  height    SMALLINT,  
+	  mDate    DATE 
+	)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    
+	CREATE TABLE buyTbl 
+	(  num 		INT AUTO_INCREMENT NOT NULL PRIMARY KEY, 
+	   userID  	CHAR(8) NOT NULL, 
+	   prodName 	CHAR(6) NOT NULL,
+	   groupName 	CHAR(4)  , 
+	   price     	INT  NOT NULL,
+	   amount    	SMALLINT  NOT NULL, 
+	   FOREIGN KEY (userID) REFERENCES userTbl(userID)
+	)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+	INSERT INTO userTbl VALUES('LSG', '이승기', 1987, '서울', '011', '1111111', 182, '2008-8-8');
+	INSERT INTO userTbl VALUES('KBS', '김범수', 1979, '경남', '011', '2222222', 173, '2012-4-4');
+	INSERT INTO userTbl VALUES('KKH', '김경호', 1971, '전남', '019', '3333333', 177, '2007-7-7');
+	INSERT INTO userTbl VALUES('JYP', '조용필', 1950, '경기', '011', '4444444', 166, '2009-4-4');
+	INSERT INTO userTbl VALUES('SSK', '성시경', 1979, '서울', NULL  , NULL      , 186, '2013-12-12');
+	INSERT INTO userTbl VALUES('LJB', '임재범', 1963, '서울', '016', '6666666', 182, '2009-9-9');
+	INSERT INTO userTbl VALUES('YJS', '윤종신', 1969, '경남', NULL  , NULL      , 170, '2005-5-5');
+	INSERT INTO userTbl VALUES('EJW', '은지원', 1972, '경북', '011', '8888888', 174, '2014-3-3');
+	INSERT INTO userTbl VALUES('JKW', '조관우', 1965, '경기', '018', '9999999', 172, '2010-10-10');
+	INSERT INTO userTbl VALUES('BBK', '바비킴', 1973, '서울', '010', '0000000', 176, '2013-5-5');
+
+	INSERT INTO buyTbl VALUES(NULL, 'KBS', '운동화', NULL   , 30,   2);
+	INSERT INTO buyTbl VALUES(NULL, 'KBS', '노트북', '전자', 1000, 1);
+	INSERT INTO buyTbl VALUES(NULL, 'JYP', '모니터', '전자', 200,  1);
+	INSERT INTO buyTbl VALUES(NULL, 'BBK', '모니터', '전자', 200,  5);
+	INSERT INTO buyTbl VALUES(NULL, 'KBS', '청바지', '의류', 50,   3);
+	INSERT INTO buyTbl VALUES(NULL, 'BBK', '메모리', '전자', 80,  10);
+	INSERT INTO buyTbl VALUES(NULL, 'SSK', '책'    , '서적', 15,   5);
+	INSERT INTO buyTbl VALUES(NULL, 'EJW', '책'    , '서적', 15,   2);
+	INSERT INTO buyTbl VALUES(NULL, 'EJW', '청바지', '의류', 50,   1);
+	INSERT INTO buyTbl VALUES(NULL, 'BBK', '운동화', NULL   , 30,   2);
+	INSERT INTO buyTbl VALUES(NULL, 'EJW', '책'    , '서적', 15,   1);
+	INSERT INTO buyTbl VALUES(NULL, 'BBK', '운동화', NULL   , 30,   2);
+
+	SELECT * FROM userTbl;
+	SELECT * FROM buyTbl;
+
+end //
+DELIMITER ;
+
+call myProcedure();
+
+
+;;사용자 생성, 권한 부여
+;;반드시 관리자 root로 로그인을 해야만 사용자 생성과 권한부여가 가능함.
+mysql -u root -p
+Password: _
+
+;; create user 사용자@호스트 identified by '암호'
+create user 'kim'@'localhost' identified by '1234';
+create user 'kim'@'%' identified by '1234';
+create user 'kim'@'192.168.0.10' identified by '1234';
+create user 'kim'@'192.168.0.*' identified by '1234';
+
+;; 사용자 권한 부여/제거
+;;grant 권한 on db명.테이블명 to 사용자;
+grant select,insert,update,delete,create,drop on sqldb.* to 'kim'@'localhost';
+grant all privileges on sqldb.* to 'kim'@'localhost';
+
+;; 권한 제거
+revoke delete on db1.* from 'kim'@'localhost';
+revoke all on sqldb.* from 'kim'@'localhost';
+
+;; 사용자 생성 후, 즉시 MySQL 서버에 반영
+flush privileges;
+
+;; 권한 확인
+;;show grants for 사용자
+show grants for 'kim'@'localhost';
+
+;; 사용자 확인
+use mysql;
+select user, host from user;
+
+;;내장함수
+;; 논리 관련 함수 
+ - IF(논리식,참일 때 값,거짓일 때 값) 
+  : 논리식이 참이면 참일 때 값을 출력하고 논리식이 거짓이면 거짓일 때 출력한다. 
+ - IFNULL(값1,값2) :값1이 NULL 이면 값2로 대치하고 그렇지 않으면 값1을 출력
+
+
+;;IF문
+SELECT IF (100>200, '참이다', '거짓이다');
+SELECT IFNULL(NULL, '참이다'), IFNULL(100, '참이다');
+--IFNULL은 NULL일때만 두번째 인자의 값을 출력해준다. 
+--NULL이 아닐시에는 첫번째 인자값 출력
+
+SELECT NULLIF(100,100), IFNULL(200,100);
+-- NULLIF는 두 인자의 값이 같으면 NULL을 반환한다. 
+-- NULLIF는 두 인자의 값이 다른면 첫번째를 반환한다. 
+
+select ifnull(sum(money),'0') from test;
+--sum 그룹함수는 0개의 대상 레코드에서는 무조건 null값이 나오며 1개나 이상의 대상 레코드에서만 0또는 해당 더한값이 나옵니다.그래서 null값이 나올경우 0으로 치환하여 출력합니다.
+
+select if(price >= 90,'A급상품','B급상품'), price from buytbl;
+--if(조건,A,B)  : 조건에 맞으면 A을 출력,조건에 맞지 않으면 B를 출력
+결과내용: 
+B급상품	30
+A급상품	1000
+A급상품	200
+A급상품	200
+
+select if(price>=90, price, price*2) from buytbl;
+-- price이 90보다 크거나 같으면 price을 출력하고 그렇지 않으면 price *2 해서 출력한다.
+select if(price >= 90,price*0.8,price*0.9) as '활인가격', price as '원래가격' from buytbl;
+
+;;CASE WHEN THEN END 구문
+SELECT CASE 10
+ 	       WHEN 1 THEN '일'
+	       WHEN 5 THEN '오'
+	       WHEN 10 THEN '십'
+	       ELSE '모름'
+           END  as '결과값';
+-- 기존 C언어 SWITCH CASE 문과 동일 함
+
+;; 사용방법(예시)
+ex1)
+create table test( a varchar(10));
+insert into test values('leejunsik');
+insert into test values('backyounjung');
+insert into test values('kimdoun');
+insert into test values('kimchungyoun');
+
+//조건식에 맞게 숫자값을 주어 그 숫자값으로 정렬하는 예제
+select * from test order by 
+ case a
+ 	when 'leejunsik' then 11
+	when 'backyounjung' then 22
+	when 'kimdoun' then 33
+	when 'kimchungyoun' then 44
+	else 55
+ end;
+
+
+//출력컬럼에 case wyhen절을 두어 조건에 맞는 값 출력
+select 
+ case a
+ when 'leejunsik' then 11
+ when 'backyounjung' then 22
+ when 'kimdoun' then 33
+ when 'kimchungyoun' then 44
+ else 55
+ end
+from test;
+
+;;문자관련함수
+ - ASCII(문자) - 문자의 아스키 코드값 리턴. 
+ - CONCAT('문자열1','문자열2','문자열3'...) - 문자열들을 이어준다. 
+ - INSERT('문자열','시작위치','길이','새로운문자열')
+   : 문자열의 시작위치부터 길이만큼 새로운 문자열로 대치 
+ - REPLACE('문자열','기존문자열','바뀔문자열') 
+   :문자열 중 기존문자열을 바뀔 문자열로 바꾼다. 
+ - INSTR('문자열','찾는문자열') - 문자열 중 찾는 문자열의 위치값을 출력 
+ - LEFT('문자열',개수) - 문자열 중 왼쪽에서 개수만큼을 추출.
+ - RIGHT('문자열',개수) - 문자열 중 오른쪽에서 개수만큼을 추출. 
+ - MID('문자열',시작위치,개수) - 문자열 중 시작위치부터 개수만큼 출력 
+ - SUBSTRING('문자열',시작위치,개수) - 문자열 중 시작위치부터 개수만큼 출력 
+ - LTRIM('문자열') - 문자열 중 왼쪽의 공백을 없앤다. 
+ - RTRIM('문자열') - 문자열 중 오른쪽의 공백을 없앤다. 
+ - TRIM('문자열') - 양쪽 모두의 공백을 없앤다. 
+ - LCASE('문자열') or LOWER('문자열') - 소문자로 바꾼다. 
+ - UCASE('문자열') or UPPER('문자열') - 대문자로 바꾼다. 
+ - REVERSE('문자열') - 문자열을 반대로 나열한다.
+
+;;ASCII 문자 사용 
+SELECT ASCII('A'), CHAR(65);
+-- 문자를 아스키 코드로 변환할때 사용  
+
+;;BIT_LENGTH, char_length, length 
+select bit_length('abc'), char_length('abc'), length('abc');
+select bit_length('가나다'), char_length('가나다'), length('가나다');
+-- bit_length는 문자열이 몇 비트인지 조회 하는 함수 
+-- char_length는 문자열의 길이를 조회 하는 함수
+-- length는 바이트를 조회하는 함수
+
+;; concat , concat_ws
+select concat_ws('/','2020','01','01');
+-- concat은 문자들을 붙여줄때 사용 
+-- concat_ws는 첫번째 인자를 구분자로 가지고 각 문자열들을 이어 붙여준다
+-- 결과 : 2019/01/31
+
+select * from test where concat(name,address) = '이준식서울';
+--concat함수는 2개의 문자열을 연결하여 하나의 문자열로 만들어 출력합니다.
+--concat() 함수의 인자는 갯수의 제한이 없으며 인자값중에 하나라도 널값이 있다면 결과도 널값이다.
+-- MySQL에서는 문자열 연결을 위해 ||을 사용할수 없다.
+
+;; elt, field, fin_in_set, instr, locate
+-- elt 는 첫번째 인자 번지에 있는 문자열을 반환한다. 
+-- field 는 첫번째 인자의 문자와 같은 문자가 다음에 몇 번지에 나오는지를 조회
+-- find_in_set 첫번째 인자의 문자열이 두번째 문자열 인자를 ,로 구분해 같은 문자열이 몇 번째에 있는지 조회 
+-- instr은 첫번째 인자 문자열에서 두번째 인자 문자열이 몇번째 존재하는지를 조회 
+-- locate는 첫번째 인자 문자열이 두번째 문자열에 몇번째 존재하는지를 조회 
+
+select elt(2, '하나','둘','셋'), field('둘', '하나', '둘', '셋'),
+       find_in_set('둘','하나,둘,셋'), instr('하나둘셋', '둘'),
+       locate('둘', '하나둘셋');
+
+
+;;format
+select format(1234121.12323,2);
+-- 2번째인자 까지의 소수점으로 출력하고 천 단위로 ,를 찍어준다. 
+
+;; BIN, HEX, OCT
+select BIN(31), HEX(31), OCT(31);
+-- BIN은 2진수로 출력
+-- HEX는 8진수로 출력
+-- OCT는 16진수로 출력 
+
+;; INSERT 문자를 삽입 
+SELECT INSERT ('abcdefghi', 3, 4, '@@@@');
+-- 2번째 인자 자리까지는 그냥 출력하고 2번째 인자이후 부터 3번째 문자의 수 만큼 4번째 인자의 문자열을 삽입하라.
+
+;; LEFT, RIGHT 
+SELECT LEFT('ADFSAFDSF',3), RIGHT('SDFDASFASDF',4);
+-- LEFT는 왼쪽부터 2번째 인자 수까지 출력
+-- RIGHT는 오른쪽부터 2번째 인자 수까지 출력
+
+;; LCASE, UCASE, LOWER, UPPER
+SELECT LCASE('ADFSAasd'), ucase('dsdsSFASDF');
+-- LCASE 는 소문자로 변경
+-- UCASE 는 대문자로 변경
+
+SELECT LOWER('ADFSAasd'), UPPER('dsdsSFASDF');
+-- 동일한 기능
+
+;; LPAD, RPAD 
+select LPAD('이것이',5,'##'),RPAD('이것이',5,'##');
+-- LPAD는 첫번째 인자값이 두번째 인자값 만큼의 길이가 안될때 세번째 인자값을 왼쪽에 채워넣음
+-- RPAD는 첫번째 인자값이 두번째 인자값 만큼의 길이가 안될때 세번째 인자값을 오른쪽에 채워넣음
+
+;; LTRIM, RTRIM, TRIM
+select ltrim('     이것이'), rtrim('이것이     ');
+-- 왼쪽 오른쪽 공백 제거
+
+select TRIM('  이것이   '), TRIM(BOTH 'ㅋ' FROM 'ㅋㅋㅋ재밌어요ㅋㅋㅋㅋ');
+select TRIM('  이것이   '), TRIM(leading 'ㅋ' FROM 'ㅋㅋㅋ재밌어요ㅋㅋㅋㅋ');
+select TRIM('  이것이   '), TRIM(trailing 'ㅋ' FROM 'ㅋㅋㅋ재밌어요ㅋㅋㅋㅋ');
+-- 양쪽 공백을 제거하거나 BOTH로 특정 문자를 지정하면 특정문자만 삭제되서 출력
+-- LEADING을 사용하면 앞쪽 특정 문자만 제거
+-- TRAILING은 뒷쪽만 제거
+
+;; REPEAT
+select repeat('이것이',3);
+-- 첫번째 인자 문자열을 두번째 인자만큼 반복 출력
+
+;; replace
+select replace('이것이 My ','이것이','this is');
+-- 문자열에서 특정 문자열을 다른 문자열로 변경시켜 준다. 
+
+select replace('lee jun sik',' ','');
+select replace('ddd dddd','ddd','aaa');
+--replace함수는 첫번째 문자열에서 두번째 문자열을 찾아서 세번째 문자열로 바꾸어준다.
+
+
+;; reverse
+select reverse('이것이 My ');
+-- 반대로 출력한다.  
+
+;; space 
+select concat('이것이',space(10),'my');
+-- 공백을 인자수 만큼 넣어주는 함수
+
+;; substring , substring_index
+select substring('대한민국만세', 3, 2);
+-- 문자열의 일부를 반환한다 2번째 인자부터 3번째 만큼의 문자열을 출력
+
+select substring_index('cafe.naver.com','.',1), substring_index('cafe.naver.com','.',-2);
+결과값: cafe	naver.com
+-- 문자열에서 2번째 인자의 문자가 3번째 인자 수만큼 나오게 되면 그 뒤는 버린다. 
+-- 음수로 3번째 인자를 입력하면 뒤에서 부터 카운트한다. 
+
+;;php에서활용예제
+$qry = "select * from goods where right(substring_index(position,'|',1),1)  order by setVal asc limit 0,$MAIN_BEST_GOODS_LIMIT";
+
+ 
+;;left() 함수
+select left('lee',2);
+-- 문자열의 좌측부터 주어진 갯수만큼 잘라내 출력한다.
+
+;;mid() 함수
+select mid('leejunsik',1,3);
+-- mid(String,StartNum,ShowLength);
+-- String에서 StartNum위치부터 ShowLength 갯수만큼 문자열을 가져온다.
+-- 문자열의 시작 순서는 1부터 시작된다.
+-- substring()와 mid()함수는 같은 연산을 하는 함수이다.
+
+select substring('leejunsik',3);
+-- 인수를 String, StartNum 만 사용하면 StartNum 위치부터 문자열 끝까지 가져온다
+-- 결과 : ejunsik
+
+
+;;수학함수
+;;숫자 관련 함수 
+ - ABS(숫자)- 절대값 출력. 
+ - CEILING(숫자)- 값보다 큰 정수 중 가장 작은 수. 
+ - FLOOR(숫자)-값보다 작은 정수 중 가장 큰 수
+   [실수를 무조건 버림(음수일경우는제외)]. 
+ - ROUND(숫자,자릿수)- 숫자를 소수점 이하 자릿수에서 반올림.
+   (자릿수는 양수,0,음수를 갖을 수 있다.) 
+ - TRUNCATE(숫자,자릿수) - 숫자를 소수점 이하 자릿수에서 버림. 
+ - POW(X,Y) or POWER(X,Y) - X의 Y승 
+ - MOD (분자, 분모) - 분자를 분모로 나눈 나머지를 구한다.(연산자 %와 같음) 
+ - GREATEST(숫자1,숫자2,숫자3...) - 주어진 수 중 제일 큰 수 리턴. 
+ - LEAST(숫자1,숫자2,숫자3...) - 주어진 수 중 제일 작은 수 리턴. 
+ - INTERVAL(a,b,c,d.....) - a(숫자)의 위치 반환  
+
+;; 집계 함수 
+ - COUNT(필드명) - NULL 값이 아닌 레코드 수를 구한다. 
+ - SUM(필드명) - 필드명의 합계를 구한다. 
+ - AVG(필드명) - 각각의 그룹 안에서 필드명의 평균값을 구한다. 
+ - MAX(필드명) - 최대값을 구한다. 
+ - MIN(필드명) - 최소값을 구한다.
+
+select abs(-2313);
+-- abs는 절대값 출력
+
+select ceiling(4.7), floor(4.7), round(4.7);
+-- ceiling은 올림 , floor는 내림, round는 반올림
+
+select conv('aa',16,2), conv(100, 10, 8);
+-- 2번째 인자의 진수를 3번째 인자 진수로 변환한다. 
+
+select degrees(pi()), radians(100);
+-- degrees 각도로 변환, radians 계산
+
+select mod(167,10), 157 % 10, 157 mod 10;
+-- mod는 나머지 값을 출력한다. 
+
+select pow(2,3), sqrt(9);
+-- pow는 재곱근, sqrt는 파이값 
+ 
+
+SELECT RAND();
+--랜덤으로 0부터 1보다 작은 실수출력
+
+SELECT FLOOR(RAND()*11);
+--랜덤의 실수에 11을 곱한후 소수점 이하를 없애면 0부터 10까지의 정수출력
+ 
+--랜덤실수에 11을 곱한후 소수점 이하를 없앤후 5을 더하면 5부터 15까지의 정수출력
+
+SELECT * FROM buytbl ORDER BY RAND();
+--해당 TABLE의 전체 레코드순서를 랜덤으로 섞은후 모두 출력한다.(DB 부하 심함)
+
+SELECT * FROM buytbl ORDER BY RAND() limit 5;
+--해당 TABLE의 전체 레코드순서를 랜덤으로 섞은후 상위 5개 레코드만 출력한다.
+(DB 부하 덜심함)
+
+select sign(100), sign(0), sign(-100.23);
+-- sign은 숫자가 음수인지 양수인지를 구별해 준다. 1 = 양수 , 0 = 0 , -1 = 음수
+
+select truncate(123123.123123,3), truncate(123123.123123,-2);
+-- 소수점 자르는 함수 
+ 
+
+;; 날짜 함수
+ - NOW() or SYSDATE() or CURRENT_TIMESTAMP() - 현재 날짜와 시간 출력 
+ - CURDATE() or CURRENT_DATE() -현재 날짜 출력 
+ - CURTIME() or CURRENT_TIME() -현재 시간 출력 
+ - DATE_ADD(날짜,INTERVAL 기준값) -날짜에서 기준값 만큼 더한다. 
+   (기준값 : YEAR, MONTH, DAY, HOUR, MINUTE, SECOND)
+ - DATE_SUB(날짜,INTERVAL 기준값) -날짜에서 기준값 만큼 뺸다. 
+   (기준값 : YEAR, MONTH, DAY, HOUR, MINUTE, SECOND)
+ - YEAR(날짜) -날짜의 연도 출력. 
+ - MONTH(날짜) -날짜의 월 출력. 
+ - MONTHNAME(날짜) -날짜의 월을 영어로 출력. 
+ - DAYNAME(날짜) -날짜의 요일일 영어로 출력. 
+ - DAYOFMONTH(날짜) -날짜의 월별 일자 출력. 
+ - DAYOFWEEK(날짜) -날짜의 주별 일자 출력(월요일(0),화요일(1)...일요일(6)) 
+ - WEEKDAY(날짜) -날짜의 주별 일자 출력(월요일(0),화요일(1)...일요일(6)) 
+ - DAYOFYEAR(날짜) -일년을 기준으로 한 날짜까지의 날 수. 
+ - WEEK(날짜) -일년 중 몇 번쨰 주. 
+ - FROM_DAYS(날 수) --00년 00월 00일부터 날 수 만큼 경과한 날의 날짜 출력. 
+ - TO_DAYS(날짜) --00 년 00 월 00일 부터 날짜까지의 일자 수 출력. 
+ - DATE_FORMAT(날짜,'형식') : 날짜를 형식에 맞게 출력
+
+-- adddate 는 정해진 날짜에 일,달,년을 빼거나 더할 수 있다. 
+select adddate('2020-01-01', interval 31 day);
+select adddate('2020-01-01', interval 31 month);
+select adddate('2020-01-01', interval -31 year);
+
+-- addtime은 시간을 더할 수 있다. 
+select addtime('2020-01-01 23:59:59', '1:1:1');
+select addtime('2020-01-01 23:59:59', '2:10:10');
+
+-- subtime은 시간을 뺄수 있다.
+select subtime('2020-01-01 23:59:59', '1:1:1');
+select subtime('2020-01-01 23:59:59', '2:10:10'); 
+
+-- curdate과 curtime, current_time()으로 현재 년도 날짜 시간등을 빼낼 수 있다.
+select year(curdate()), month(curdate()),dayofmonth(curdate());
+select year('2020-01-01'), month('2020-01-01'),dayofmonth('2020-01-01');
+
+select hour(curtime()), minute(current_time()), second(current_time()), microsecond(current_time());
+select hour('2020-01-01 23:59:59'), minute('2020-01-01 23:59:59'), second('2020-01-01 23:59:59'), microsecond('2020-01-01 23:59:59');
+
+-- date, time 함수안에 now()함수를 호출하면 현재 시간과 날짜를 출력할 수 있다.
+select date(now()), time(now());
+ 
+-- dateiff나 timediff를 이용해 날짜나 시간의 차이를 구할 수 있다.
+select datediff('2020-01-01', now());
+select timediff('23:23:59', '12:11:10');
+
+-- dayofweek 일주일중 몇번째 요일인가, monthname 지금 월, dayofyear 현재 날짜 
+select dayofweek(curdate()), monthname(curdate()), dayofyear(curdate()); 
+
+-- 현재 달에 마지막 날을 출력한다. 
+select last_day('2020-04-01');
+값출력: 2020-04-30
+
+-- 해당 년도에서 몇일이 지난 날짜가 언젠지 출력
+select makedate(2020, 32);
+결과값:  2020-02-01출력됨
+ 
+-- 시간 만들기 
+select maketime(12,11,10);
+
+-- 년월에서 몇달째가 지난 날짜 
+select period_add(202001, 11);
+결과값 : 202012
+
+-- 각 달의 차이 
+select period_diff(202001, 201812);
+값
+13
+
+-- 몇 분기인지 출력 
+select quarter('2020-07-07');
+
+-- 시분초를 주면 초단위로 계산해줌
+select time_to_sec('12:11:10');
+
+
+--오늘 날짜 출력
+select current_date();
+
+ 
+;; 시스템 정보 함수
+-- 현재 사용자와 사용하는 데이터베이스를 출력 
+select current_user(), database();
+
+
+-- 바로 앞서 불러온 데이터의 행을 출력한다. 
+use sqldb;
+select * from usertbl;
+select found_rows();
+
+
+-- 몇건이 update나 insert 되었는지 확인할 수 있음 
+use sqldb;
+update buytbl set price = price * 2;
+select row_count();
+
+-- 용량이 큰 데이타 입력하기
+use sqldb;
+create table maxtbl(
+	col1 longtext, col2 longtext
+);
+
+insert into maxtbl values(repeat('a',1000000), repeat('b',1000000));
+insert into maxtbl values(repeat('a',10000000),repeat('b',10000000));--에러발생
+
+-- 관리자창으로 들어갈것
+C:\>cd programdata
+C:\ProgramData>dir
+C:\ProgramData>cd mysql
+C:\ProgramData\MySQL>cd "MySQL Server 5.7"
+C:\ProgramData\MySQL\MySQL Server 5.7>notepad my.ini
+max_allowed_packet=4M  => max_allowed_packet=1000M 수정하고 저장할것
+
+
+C:\ProgramData\MySQL\MySQL Server 5.7>net stop mysql
+MySQL 서비스를 멈춥니다...
+MySQL 서비스를 잘 멈추었습니다.
+
+C:\ProgramData\MySQL\MySQL Server 5.7>net start mysql
+MySQL 서비스를 시작합니다..
+MySQL 서비스가 잘 시작되었습니다.
+
+insert into maxtbl values(repeat('a',10000000),repeat('b',10000000));
+
+show variables like 'max%'; --시스템변수를 확인할수 있다. 
+결과값
+max_allowed_packet	4194304
+max_binlog_cache_size	18446744073709547520
+max_binlog_size	1073741824
+max_binlog_stmt_cache_size	18446744073709547520
+max_connect_errors	100
+max_connections	1 51
+
+
+-- mysql 버전을 출력
+select version();
+
+
+-- 초단위로 잠시 멈춰 줄 수있음 
+select sleep(1);
+select '1초 잠시후에 보임';
+select sleep(2);
+select '2초 잠시후에 보임';
+
+;;쿼리결과를 파일로 저장할수 있는기능
+C:\Users\kdj>cd %programdata%
+C:\ProgramData>cd mysql
+C:\ProgramData\MySQL>cd "MySQL Server 5.7"
+C:\ProgramData\MySQL\MySQL Server 5.7>notepad my.ini
+--제일마지막 줄에 secure-file-prev=C:/TEMP 을 입력하고 저장한다.
+--저장 안될 경우 바탕화면에 my.ini를 저장한다음. 다시 그 위치에  저장하면됨.
+--그리고 명령프롬프트를 관리자 모드로 가서 net stop mysql, net start mysql을 재가--동 시켜야 적용이 됨. (컴퓨터 재부팅해도 됨.)
+
+Select * into outfile ‘c:/temp/userTBL.txt’ from userTBL;
+--MS_Word로 볼것
+
+create table membertbl like usertbl; 
+--테이블구조만 그대로 가져옴, 내용은 가져오지 않음. Pk ,FK 모두가져온다. 
+
+Load data local infile ‘c:/temp/userTBL.txt’ into table memberTBL;
+Select * from memberTBL; 
+-- 파일의 내용을 가져와서  테이블에 저장할 수 있다. (단, 구조는 맞아야됨.)
+
+
+
+
+
+
+
+
+;;조인관계
+조인은 관계형 데이터 베이스에서 일반적으로 많이 사용한다. 
+조인의 종류
+1. INNER 조인
+2. LEFT OUTER, RIGHT OUTER, FULL OUTER 조인
+3. 카티전 조인 (CROSS 조인)
+4. 셀프 조인
+
+
+use sqldb;
+
+CREATE TABLE T1 ( 
+	no INT PRIMARY KEY,
+	name VARCHAR(20)
+ )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO T1  VALUES (1,'홍길동');
+INSERT INTO T1  VALUES (2,'저길동');
+INSERT INTO T1  VALUES (3,'구길동');
+INSERT INTO T1  VALUES (4,'이길동');
+
+CREATE TABLE T2 (
+	no INT, 
+	carName VARCHAR(20),
+	foreign key(no) references t1(no)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO T2 VALUES (2,'SM5');
+INSERT INTO T2 VALUES (3,'SONATA');
+
+;;INNER JOIN(t1 ^ t2 :교집합)
+
+t1, t2 의 INNER JOIN  이면 차를 소유하고 있는 사람만 추출된다.
+
+-- ANSI SQL
+SELECT T1.no, T1.name, T2.carName
+	FROM T1 INNER JOIN T2 ON T1.no=T2.no
+
+결과값
+2	저길동	SM5
+3	구길동	SONATA
+
+
+;; 3개의테이블 inner join 방법
+DROP DATABASE IF EXISTS sqlJoinDB;
+CREATE DATABASE sqlJoinDB;
+USE sqlJoinDB;
+create table stdtbl(
+	stdname varchar(10) not null primary key,
+	addr char(4) not null
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create table clubtbl(
+	clubname varchar(10) not null primary key,
+	roomno char(4) not null
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create table stdclubtbl(
+	num int AUTO_INCREMENT not null primary key,
+	stdname varchar(10) not null,
+	clubname varchar(10) not null,
+	FOREIGN KEY(stdname) REFERENCES stdtbl(stdname),
+	FOREIGN KEY(clubname) REFERENCES clubtbl(clubname)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into stdtbl values 
+	('김범수','경남'),
+	('성시경','서울'),
+	('조용필','경기'),
+	('은지원','경북'),
+	('바비킴','서울');
+insert into clubtbl values
+	('수영','101호'),
+	('바둑','102호'),
+	('축구','103호'),
+	('봉사','104호');
+insert into stdclubTbl values 
+	(null, '김범수','바둑'),
+	(null, '김범수','축구'),
+	(null, '조용필','축구'),
+	(null, '은지원','축구'),
+	(null, '은지원','봉사'),
+	(null, '바비킴','봉사');
+--학생기준
+select s.stdname, s.addr, c.clubname, c.roomno	
+	from stdtbl s
+		inner join stdclubtbl sc 
+			on s.stdname = sc.stdname
+		inner join clubtbl c 
+			on sc.clubname = c.clubname
+	order by s.stdname;
+--동아리기준
+select c.clubname, c.roomno, s.stdname, s.addr 	
+	from stdtbl s
+ 		inner join stdclubtbl sc 
+			on s.stdname = sc.stdname
+		inner join clubtbl c  
+			on sc.clubname = c.clubname 
+	order by c.clubname;
+
+
+
+;; LEFT OUTER JOIN : 좌측을 기준(t1 집합)
+조인의 조건에 만족되지 않는 행까지도 포함시키는 것
+ 
+-- ANSI SQL
+SELECT T1.no,T1.name, T2.carName
+	FROM T1 LEFT  OUTER JOIN T2 ON T1.no=T2.no;
+
+
+결과값
+2	저길동	SM5
+3	구길동	SONATA
+1	홍길동	
+4	이길동	
+
+
+
+;; RIGHT OUTER JOIN  : 우측을 기준(t2 집합)
+
+-- ANSI SQL
+SELECT T1.no,T1.name, T2.carName
+	FROM T1 RIGHT OUTER JOIN T2 ON T1.no=T2.no;
+
+2	저길동	SM5
+3	구길동	SONATA
+
+
+
+;; 교집합의 여집합을 표현하고 싶을때 (  ~(a^B) :교집합의 여집합)
+SELECT T1.no,T1.name, T2.carName
+	FROM T1 JOIN T2 ON T1.no <>T2.no;
+
+(t1 ^ t2)를 뺀 모든 나머지경우의수가 나옴. 
+2	저길동	SM5
+3	구길동	SONATA
+
+결과값
+1	홍길동	SM5
+1	홍길동	SONATA
+2	저길동	SONATA
+3	구길동	SM5
+4	이길동	SM5
+4	이길동	SONATA
+
+
+
+;;카티전 조인 ( CROSS JOIN)
+집합에서 집합 곱의 개념이다.
+A= {a, b, c, d} , B = {1, 2, 3} 일 때
+A CROSS JOIN B 는
+(a,1), (a, 2), (a,3), (b,1), (b,2), (b,3), (c, 1), (c,2), (c,3), (d, 1), (d, 2), (d,3)
+와 같이 결과가 나타난다. 결과의 계수는 n(A) * n(B)  = 4 * 3 = 12 이다.
+
+SELECT T1.no, T1.name, T2.carName
+FROM T1 CROSS JOIN T2 ;
+
+결과값
+1	홍길동	SM5
+1	홍길동	SONATA
+2	저길동	SM5
+2	저길동	SONATA
+3	구길동	SM5
+3	구길동	SONATA
+4	이길동	SM5
+4	이길동	SONATA
+
+
+CREATE TABLE chicken_gate ( 
+	id INT PRIMARY KEY,
+	name VARCHAR(16) NOT NULL,
+	boss INT NOT NULL )ENGINE=InnoDB DEFAULT CHARSET=utf8; 
+
+INSERT INTO chicken_gate VALUES (3, '목사', 3); 
+INSERT INTO chicken_gate VALUES (6, 'sun', 3); 
+INSERT INTO chicken_gate VALUES (8, '닭', 3); 
+INSERT INTO chicken_gate VALUES (9, '말', 6);
+INSERT INTO chicken_gate VALUES (2, '우병', 8);
+INSERT INTO chicken_gate VALUES (4, '기춘', 8);
+INSERT INTO chicken_gate VALUES (11, '종범', 8);
+
+SELECT c.name AS child, p.name AS boss 
+	FROM chicken_gate AS p 
+	JOIN chicken_gate AS c ON p.id = c.boss;
+
+결과값
+우병	닭
+목사	목사
+기춘	닭
+sun	목사
+닭	목사
+말	sun
+종범	닭
+
+;;ROLLUP(분류별합계와 총합계구하기)
+
+ select groupName, sum(price*amount) as '비용'	
+	from buytbl	
+	group by groupName  with ROLLUP;
+
+null	180
+서적	120
+의류	200
+전자	3000
+null	3500
+
+;;숫자 데이터형식
+데이터 유형정의
+CHAR(n)		고정 길이 데이터 타입(최대 255byte)
+		지정된 길이보다 짦은데이터 입력 나머지 공간 공백으로 채워짐 VARCHAR(n)	가변 길이 데이터 타입(최대 65535byte)
+		지정된 길이보다 짦은 데이터 입력될 시 나머지 공간은 채우지 않음
+TINYTEXT(n)	문자열 데이터 타입(최대 255byte)
+TEXT(n)		문자열 데이터 타입(최대 65535byte)
+MEDIUMTEXT(n)	문자열 데이터 타입(최대 16777215byte)
+LONGTEXT(n)	문자열 데이터 타입(최대 4294967295byte)
+
+
+숫자형 데이터타입 #
+TINYINT(n)	정수형데이터타입(1byte) -128~+127 또는 0 ~ 255수 표현 가능하다.
+SMALLINT(n)	정수형 데이터 타입(2byte) -32768 ~ 32767 또는 0 ~ 65536수 표현 
+MEDIUMINT(n)	정수형 데이터 타입(3byte) -8388608 ~ +8388607 또는 0 ~ 16777215
+INT(n)		정수형 데이터 타입(4byte) -2147483648 ~ +2147483647 
+		또는 0 ~ 4294967295수 표현 가능하다.
+BIGINT(n)	정수형 데이터 타입(8byte) - 무제한 수 표현 가능하다.
+FLOAT(길이,소수)	부동 소수형 데이터 타입(4byte) -고정 소수점을 사용 형태이다.
+DECIMAL(길이,소수)고정 소수형 데이터 타입고정(길이+1byte) -소수점을 사용 
+DOUBLE(길이,소수)부동 소수형 데이터 타입(8byte) -DOUBLE을 문자열로 저장한다.
+
+
+날짜형 데이터 타입 #
+DATE		날짜(년도, 월, 일) 형태의 기간 표현 데이터 타입(3byte)
+TIME		시간(시, 분, 초) 형태의 기간 표현 데이터 타입(3byte)
+DATETIME	날짜와 시간 형태의 기간 표현 데이터 타입(8byte)
+TIMESTAMP	날짜와 시간 형태의 기간 표현 데이터 타입(4byte) 
+		시스템 변경 시 자동으로 그 날짜와 시간이 저장된다.
+YEAR		년도 표현 데이터 타입(1byte)
+
+
+이진 데이터 타입 #
+BINARY(n)	CHAR의 형태의 이진 데이터 타입 (최대 255byte)
+BYTE(n)		CHAR의 형태의 이진 데이터 타입 (최대 255byte)
+VARBINARY(n)	VARCHAR의 형태의 이진 데이터 타입 (최대 65535byte)
+TINYBLOB(n)	이진 데이터 타입 (최대 255byte)
+BLOB(n)		이진 데이터 타입 (최대 65535byte)
+MEDIUMBLOB(n)	이진 데이터 타입 (최대 16777215byte)
+LONGBLOB(n)	이진 데이터 타입 (최대 4294967295byte)
+
+기타 데이타 타입 #
+GEOMETRY 	공간데이터형식으로 선,점 및 다각형 공간데이터 개체를 저장조작
+		(지도데이터)
+JSON		JSON(Javascript Object Notation) 문서를 저장
+		(mysql 5.7.8 이후부터가능함)
+
+영화대본은 	LONGTEXT 으로 저장한다.
+영화동영상은 	LOGNBLOB 으로 저장한다.
+
+;; 데이터 타입으로 변환하기(문자열을 해당되든 타입으로 바꾸기)
+select cast('2020-10-19 12:35:29.123' as DATE) as 'date';
+select cast('2020-10-19 12:35:29.123' as TIME) as 'time';
+select cast('2020-10-19 12:35:29.123' as DATETIME) as 'datetime';
+select cast('2020$10$19' as DATE) as 'date';
+select cast('2020/10/19' as DATE) as 'date';
+select cast('2020%10%19' as DATE) as 'date';
+select cast('2020@10@19' as DATE) as 'date';
+select num, 
+	concat(cast(price as char(10)),'x',cast(amount as char(4)),'='),		price*amount
+from buytbl;
+
+
+select avg(amount) from buytbl;
+select cast(avg(amount) as signed integer) from buytbl;
+select convert(avg(amount) , signed integer) from buytbl;
+
+
+;;변수의사용
+set @t3=5;
+select @t3;
+
+SELECT @t1:=(@t2:=1)+@t3:=4,@t1,@t2,@t3;
++----------------------+------+------+------+
+| @t1:=(@t2:=1)+@t3:=4 | @t1  | @t2  | @t3  |
++----------------------+------+------+------+
+| 5                    | 5    | 1    | 4    |
+
+SET @str := '김하영';
+SELECT @str;
+
+
+-- 번호순서대로 번호 붙여서 찍기
+set @rownum:=0;
+select (@rownum:=@rownum+1) as rownum, prodName from buytbl;
+
+결과값
+1	운동화
+2	노트북
+3	모니터
+4	모니터
+5	청바지
+6	메모리
+7	책
+8	책
+9	청바지
+10	운동화
+11	책
+12	운동화
+
+-- 원래 limit @myvar는 쓸수가 없는데 쓸수 있는 방법
+set @myvar= 3;
+prepare myquery
+	from 'select name, height from usertbl order by height limit ?';
+execute myquery using @myvar;
+
+결과값
+'조용필', '166'
+'윤종신', '170'
+'조관우', '172'
+
+;;sql 프로그래밍1
+
+use sqldb;
+DROP PROCEDURE if exists ifproc;
+
+DELIMITER $$
+create procedure ifproc()
+Begin
+	DECLARE var1 int; -- 변수선언
+	set var1 = 100;  -- 변수에 값 대입        
+	
+	if var1 = 100 then
+		select '100입니다';
+	ELSE
+		select '100이 아닙니다';
+	end if;
+end $$
+DELIMITER ;
+
+call ifproc();
+
+;;sql 프로그래밍2
+
+-- 사원번호 10001번 사원이 입사한지 현재 날짜를 계산해서 5년이 지났으면 
+-- 입사한지 몆일 이 지났습니다. 축하합니다. 메시지를 출력할것
+-- 입사한지 몇일 밖에 안되었네요. 열심히 일하세요.. 메시지를 출력할것.
+Drop procedure if exists ifproc2;
+Delimiter $$
+Create procedure ifproc2()
+Begin
+    DECLARE hiredate date; -- 입사일
+    DECLARE curdate date; -- 오늘
+    DECLARE days int; -- 근무한일수
+  
+    ?- hire_date결과를 hiredate에 대입
+    select hire_date into hiredate 
+	from employees.employees
+        where emp_no = 10001;
+
+    set curdate = current_date(); -- 현재날짜
+    
+    -- 날짜의 차이, 일 단위	
+    set days = datediff(curdate, hiredate); 
+  
+    ?- 5년이 지났다면
+    if(days/365) >=5 then 
+	select concat(＇입사한지＇,days, ＇일이나 지났습니다. 축하합니다＇);
+    ELSE
+	select ＇입사한지＇ + days + ＇일 밖에 안되었네요. 열심히 일하세요.＇;
+   end if;
+End $$
+delimiter ;
+call ifproc2();
+
+;;sql 프로그래밍3
+
+DROP PROCEDURE IF EXISTS ifproc3;
+
+DELIMITER $$
+CREATE PROCEDURE ifproc3()
+BEGIN
+    DECLARE point INT;
+    DECLARE credit CHAR(1);
+    SET point = 77;
+
+    if point >= 90 then
+	set credit = 'A';
+    elseif point >= 80 then
+	set credit = 'B';
+    elseif point >= 70 then
+	set credit = 'C';
+    elseif point >= 60 then
+	set credit = 'D';
+    ELSE
+	set credit = 'F';
+    END IF;
+
+    select concat('취득점수 --->',point), concat('학점 --->',credit);
+END $$
+DELIMITER ;
+
+call ifproc3();
+
+;;sql 프로그래밍4
+
+sqlDB의 구매 테이블(buyTBL)에 구매액(price * amount)이 1500원 이상인 고객은 ‘최우수고객’1000원 이상인 고객은 ‘우수고객’, 1원 이상인 고객은 ‘일반고객’으로 출력하자. 또 전혀 구매 실적이 없는 고개은 ‘유령고객’이라고 출력하자. 
+Case 문을 활용하는 sql프로그래밍을 작성해보시오. 
+
+1. 실행방법방식 첫번째
+Use sqldb;
+Select userid , sum(price*amount) as ＇총구매액＇
+	from buytbl
+    group by userid
+    order by sum(price*amount) desc;
+
+2. 실행방법방식 두번째
+use sqldb;
+select B.userid , U.name,  sum(price*amount) as '총구매액'
+	from buytbl B
+    INNER JOIN usertbl U
+	ON B.userid = U.userid
+    group by B.userid
+    order by sum(price*amount) desc;
+
+3. select B.userid , U.name,  sum(price*amount) as '총구매액‘
+	from buytbl B    
+	RIGHT OUTER JOIN usertbl U	
+	ON B.userid = U.userid  
+   group by  U.name 
+   order by sum(price*amount) desc;
+
+4. select B.userid , U.name,  sum(price*amount) as '총구매액‘,
+	case
+		when (sum(price*amount) >= 1500) then '최우수고객‘
+		when (sum(price*amount) >= 1000) then '우수고객'	
+		when (sum(price*amount) >= 1) then '일반고객'	
+		else '유령고객‘
+	end as '고객등급'
+
+	from buytbl B    
+	RIGHT OUTER JOIN usertbl U	
+	ON B.userid = U.userid  
+   group by  U.name 
+   order by sum(price*amount) desc;
+
+
+;;sql 프로그래밍5
+-- 1부터 100까지 합을 구하는 프로그램
+
+drop PROCEDURE if EXISTS whileProc;
+
+delimiter $$
+create PROCEDURE whileProc()
+begin
+    
+    DECLARE i int;
+    DECLARE hap int;
+    set i =1;
+    set hap = 0;
+    
+    while(i <= 100) 
+    do
+	set hap = hap + i;
+        set i = i+ 1;
+    end while;
+    
+    select concat('1부터 100까지 합은 ',hap);
+end $$
+delimiter ;
+
+call whileProc();
+
+;;sql 프로그래밍6
+
+1 부터 100까지 값을 모두 더하는 프로그램을 구현해 보자.
+단 7의배수는 제외시키고, 더하는 중간에 합계가 1000이 넘으면 더하는것을 그만두고 출력하시오.
+
+drop PROCEDURE if EXISTS whileProc;
+delimiter $$
+create PROCEDURE whileProc()
+begin
+    DECLARE i int;
+    DECLARE hap int;
+    set i =1;
+    set hap = 0;
+    MYWHILE :	while(i <= 100) 
+		do
+			if(i %7 = 0) then
+				set i = i+1;
+                        	iterate MYWHILE; --지정한라벨문 가서 계속진행
+                    	end if;
+			
+			set hap = hap + i;
+                    	
+			if(hap > 1000) then
+				leave MYWHILE;   --지정한라벨문 떠남, 반복문종료
+                    	end if;
+			
+			set i = i+ 1;
+		end while;
+
+        select concat('1부터 100까지 합은 ',hap);
+end $$
+delimiter ;
+call whileProc();
+
+
+
+
+주의: 테이블을 생성시 컬럼명과 테이블명은 소문자
+1. MySQL에서 테이블을 생성시 컬럼명과 테이블명은 소문자를 쓰는게 좋다.
+2. PHP에서 MySQL와 연동하여 데이타를 출력할때 컬럼명은 대소문자를 구분한다.
+
+
+주의: where절에 필드명만 썼을경우
+
+1. select * from lee where a;라고 쓰면 어떻게 나올까?
+해)바로 a가 null 이거나 0 또는 공백이 아닌값은 다 출력된다.
+
+
+[전체 레코드 출력 where절]
+select * from table_name where 1;
+select * from table_name where 1=1;
+select * from table_name where true;
+select * from table_name where int가아닌컬럼명 = 0
+
+※ Oracle 에서는 select * from table_name where 1=1; 만 사용가능함
+※ DB2 에서는 select * from table_name where 1=1; 만 사용가능함
+※ 'where 1=1' 을 사용했을때와 사용하지 않을때의 쿼리속도는 크게 차이가 없다.
+ 
+
+[mysql에서 주석 쓰기]
+--주석입니다.
+/* 주석입니다. */
+#주석입니다.
+※ ORACLE의 주석은 --만 사용가능합니다.
+ 
+
+[order by 에 컬럼명이 아닌 숫자 넣기]
+--제대로된 query
+--첫번째 컬럼명(1)으로 오름차순 정렬
+select name from goods order by 1;
+
+--잘못된 query
+--0이란 숫자는 order by사용할수 없습니다.
+select name from goods order by 0;
+
+[insert 편하게 입력하기]
+천개의 자료를 입력시 다음과 같이 한다.
+ex)insert into table_name values('sss','ssss');
+ex)insert into table_name values('sss','ssss');
+ex)insert into table_name values('sss','ssss');
+.....*1000
+insert into table_name values ('sss','sss') ,('aa','aa'),('ww','ww');
+위와같이 하게 된다면 속도가 3배이상빨라진다. txt파일이나 csv파일을
+sql파일로 만들시 insert구문은 위와같이 변경해서 복원하면 좋다.
+*oracle에서는 안됨*
+
+ 
+
+[insert와 update사용시 편하게 입력하기]
+
+update문:update table_name set field='value',field1='value'
+
+insert문:insert into table_name (filed1,file2) values ('field_value','field_value2');
+
+insert문:insert into table_name set field='value',field1='value'
+
+*update문을 insert문로 바꾸거나 insert문을 update문으로 바꿀때 편합니다. 
+
+*oracle에서는 안됨 insert시에 set는 oracle에서는 안됨*
+
+ 
+
+[파일의 내용을 DB에 저장할때]
+
+파일내용을 DB에 저장할때는 텍스트파일경우 TEXT컬럼 이미지등의 바이너리 파일을
+
+저장할때는 BLOB을 사용하면 된다 막상 파일을 DB에 저장시에는 클라이언트의
+
+파일을 조사후 INSERT문에 사용하면 바이너리(GIF,SWF,JPG등)일경우에 탈출문자
+
+처리로 어렵습니다. 이때는 LOAD_FILE() 함수를 이용하면된다.
+
+단이때 max_packet_size보다 작아야 한다. 파일크기가 클시에는 max_packet_size를
+
+파일크기보다 크게 올려줘야합니다.
+
+ex)insert into table_name values(load_file('/home/lee/lee.gif'));
+
+ 
+
+[update쿼리에서 갱신값이 2개이상일때]
+
+ex)update table_name set a='a';
+ex)update table_name set aa='aa';
+을 아래와 같이 , 로 나누어서 실행한다.
+ex)update table_name set a='a',aa='aa;
+
+ 
+
+[계정의 DataBase에 너무 많은 Table이 있을때 한꺼번에 삭제하는 방법]
+너무 많은 Table이 있을때 하나하나 삭제하게 되면 시간이 많이 걸린다.
+그때는 Database을 한번에 Drop한후 다시 Database를 만든다.
+문법 : Drop database database_name;
+문법 : Create database database_name;
+참조 : 해당 계정의 Database명은 생성/삭제가 해당 계정와 ROO계정에서만 가능하다.
+
+
+
+

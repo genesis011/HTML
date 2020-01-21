@@ -1,0 +1,22 @@
+body{
+  margin: 10px auto;
+  width: 80%;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+#page_box a:hover{
+  background-color: #2F9D27;
+  color: white;
+  border-radius: 3px;
+  border: 1px solid #2F9D27;
+}
+#page_box a{
+  position: relative;
+  margin-top: 2%;
+  margin-left: auto;
+  text-align:center;
+}

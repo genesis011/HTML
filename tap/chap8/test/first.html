@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>My First Javascript</title>
+  <script src="First.js">
+
+  </script>
+
+  <script>
+    funcion calc() {
+      var xx = document.getElementById("xx").value;
+      var yy = document.getElementById("xx").value;
+      var sum;
+      sum = parseInt(xx) + parseInt(yy);
+      document.getElementById("sum").value = sum;
+    }
+  </script>
+  <script>
+    var computerNumber = 53;
+    var nGuesses = 0;
+
+    funcion guess() {
+      var result = "";
+      var number = parseInt(document.getElementById("user").value);
+      nGuesses++;
+
+      if (number == computerNumber) result = "성공입니다.";
+      else if (number < computerNumber) result = "낮습니다.";
+      else result = "높습니다.";
+
+      document.getElementById("result").value = result;
+      document.getElementById("guesses").value = nGuesses;
+      return true;
+    }
+  </script>
+
+
+</head>
+
+<body>
+  <br><br>
+  <hr><br>
+  <script>
+    var now = new Date();
+    document.write(now);
+  </script>
+  <hr>
+
+  <p>
+    자바 스크립트 이벤트에 반을을 할 수 있습니다.
+  </p>
+  <button type="button" name="" onclick="alert('반갑습니다.')">버튼을 누르세요</button>
+  <br><br>
+  <hr><br>
+
+  <script>
+    document.write("<h1>Hello World</h1>");
+  </script>
+
+  <!-- <script>
+      var x;
+      x = "Hello World!";
+      alert(x);
+    </script> -->
+
+  <!-- 최종 변수의 값은 10 -->
+  <!-- <script>
+      var y;
+      y = "Hong";
+      y = 10;
+    </script> -->
+
+  <script>
+    var s;
+    s = 100;
+    document.write(s + "<br>");
+
+    s = "홍길동";
+    document.write(s + "<br>");
+  </script>
+  <br>
+  <hr><br>
+  <script>
+    var m = "Hello World";
+    var t = "How are you" + "today?";
+
+    document.write(m + "<br>");
+    document.write(t + "<br>");
+    document.write(m.toUpperCase() + "<br>");
+  </script>
+  <br>
+  <hr><br>
+  <script>
+    var myCar = {
+      model: "Benz",
+      color: "white",
+      hp: 1500
+    };
+
+    document.write(myCar.model + "<br>");
+    document.write(myCar.color + "<br>");
+    document.write(myCar.hp + "<br>");
+  </script>
+  <br>
+  <hr><br>
+  <script>
+    var w = 10;
+    var z = 20;
+
+    document.write(w + z + "<br>");
+    document.write(w - z + "<br>");
+    document.write(w * z + "<br>");
+    document.write(w * z + "<br>");
+    document.write(w / z + "<br>");
+    document.write(w % z + "<br>");
+  </script>
+  <br>
+  <hr><br>
+  <script>
+    var k;
+    k = 10;
+    document.write(++k + "<br>");
+    k = 10;
+    document.write(k++ + "<br>");
+  </script>
+  <br>
+  <hr><br>
+  <script>
+    j = 1 + 1;
+    d = "Car" + 1;
+    document.write(j + "<br>");
+    document.write(d + "<br>");
+  </script>
+  <br>
+  <hr><br>
+  <script>
+    var e = 10;
+    var r = 20;
+
+    document.write((e > r) + "<br>");
+    document.write((e < r) + "<br>");
+    document.write((e == r) + "<br>");
+    document.write((e != r) + "<br>");
+  </script>
+  <br>
+  <hr><br>
+
+  <!-- false & true -->
+  <!-- <script>
+    var c = 3;
+    var f =4;
+    alert((c == 3) && (f == 7));
+    alert((c == 3) || (f == 4));
+  </script> -->
+
+<!-- 수정 요망 -->
+  <script>
+    var o, p;
+    var input;
+
+    input = prompt("정수를 입력하시오", "정수로");
+    o = parseInt(input);
+
+    input = prompt("정수를 입력하시오", "정수로");
+    p = parseInt(input);
+
+    document.write(o + p + "<br>");
+  </script>
+
+  <h3>덧셈 계산기</h3>
+  <form name="myform" action="..." method="POST">
+    첫번째 정수 : <input id="xx" /> <br/>
+    두번째 정수 : <input id="yy" /> <br/>
+    합계 : <input id="sum" /> <br/>
+    <input type="button" name="" value="계산" onclick="calc();" />
+  </form>
+  <br>
+  <hr><br>
+  <h1 id="test">This is a heading.</h1>
+  <script>
+    funcion func() {
+      cm = document.getElementById("test");
+      cm.style.color = "red";
+    }
+  </script>
+  <button type="button" onclick="func()">클릭하세요!</button>
+  <br>
+  <hr><br>
+  <!-- Good Afternoon -->
+  <!-- <script>
+    var msg = "";
+    var time = new Date().getHours();
+    if (time < 12) {
+      msg = "Good Morning";
+    } else if (time < 18) {
+      msg = "Good Afternoon";
+    } else {
+      msg = "Good evening";
+    }
+    alert(msg);
+  </script>
+   -->
+
+   <script>
+     var grade = prompt("성적을 입력하시오 :", "A-F사이의 문자로");
+     switch (grade) {
+       case: 'A': alert("잘했어요!");
+       break;
+       case: 'B': alert("좋은점수군요");
+       break;
+       case: 'C': alert("괜찮은 점수군요");
+       break;
+       case: 'D': alert("좀더 노력하세요");
+       break;
+       case: 'F': alert("다음학기 수강하세요");
+       break;
+       default: alert("알 수 없는 학점이에요")
+     }
+   </script>
+
+  <h2>숫자 맞추기 게임</h2>
+  이 게임은 컴퓨터가 생성한 숫자를 맞추는 게임입니다. 숫자는 1부터 100 사이에 있습니다.
+  <form>
+    숫자 :
+    <input type="text" id="user" size="5">
+    <input type="button" value="확인" onclick="guess();">
+    추측횟수 :
+    <input type="text" id="guesses" size="5">
+    힌트 :
+    <input type="text" id="result" size="16">
+  </form>
+
+
+
+
+
+
+</body>
+
+</html>

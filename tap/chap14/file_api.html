@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML File API </title>
+    <script>
+        function readFile() {
+            if (!window.File || !window.FileReader) {
+                alert('File API가 지원되지 않습니다.');
+                return
+            }
+            var files = document.getElementById('input').files;
+            if (!files.length) {
+                alert('파일을 선택하시오!');
+                return;
+            }
+            var file = files[0];
+            var reader = new FileReader();
+            reader.onload = function () {
+                document.getElementById('result').value = reader.result;
+            };
+            reader.readAsText(file, "euc-kr");
+        }
+    </script>
+</head>
+<body>
+    <input type="file" id="input" name="input">
+    <button id="readfile" onclick="readFile()">파일 읽기</button><br />
+    <textarea id="result" rows="6" cols="60"> </textarea>
+</body>
+</html>

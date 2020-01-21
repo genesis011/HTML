@@ -1,0 +1,8 @@
+#cart_list{width:77%; margin-left:12%;}
+#title, #sub_title{margin-bottom:9px;}
+#del_btn{color:white; border-radius: 3px; margin-bottom:3%; width: 85px; height: 36px; font-weight: bold; margin-left: 92.5%; cursor: pointer; border: 1px solid #2F9D27; background-color: #2F9D27;}
+#del_btn:hover {background-color: #47C83E;}
+#list_field{border: none; margin:0;padding:0;}
+#list_tbl_body {width:100%;-webkit-border-horizontal-spacing: 0px;-webkit-border-vertical-spacing: 0px;border-top-width: 0px;border-right-width: 0px;border-bottom-width: 0px;border-left-width: 0px; font-size: 0.89em; margin-top: 20px; text-align: center; border: 1px solid #dedede; border-top-color :  black; border-collapse: separate;}
+#list_tbl_body tr:first-child{font-weight:bolder; color:#3d3d3d; background-color:#f2f2f2;}
+#list_tbl_body td{padding:12px; border-right:1px solid #dedede; border-bottom:1px solid #dedede; border-collapse: collapse;}

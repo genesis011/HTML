@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        span{
+            color: red;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <label>이름</label><input type="text" onkeyup="checkName(this.value)"> <span id="nameMsg"></span><br />
+        <label>주민번호</label><input id = "first-idNum" type="text" onkeyup="checkIdNum1(this.value)"> - <input id = "second-idNum" type="text" onkeyup="checkIdNum2(this.value)"> <span id="idNumMsg"></span><br />
+        <label>아이디</label><input type="text" onkeyup="checkId(this.value)"> <span id="idMsg"></span><br />
+        <input type="button" value="등록"> <input type="button" value="취소">
+    </form>
+
+    <script>
+        function checkName(name){
+            console.log(name);
+            var regExp = /^[a-zA-Z가-힣\x20]{2,8}$/;
+            if(regExp.test(name)){
+                document.getElementById('nameMsg').textContent = "";
+            }else{
+                document.getElementById('nameMsg').textContent = "영문, 한글 2~8자 (공백 허용)";
+            }
+        }
+
+        function checkIdNum1(){
+            var regExp = /^\d{6}$/;
+            var num = parseInt(document.getElementById('first-idNum').value);
+            if(!regExp.test(num)){
+                document.getElementById('idNumMsg').textContent = "6자리 숫자-7자리 숫자";
+            }
+        }
+
+        function checkIdNum2(){
+            var regExp = /^\d{7}$/;
+            var num = parseInt(document.getElementById('second-idNum').value);
+            if(regExp.test(num)){
+                document.getElementById('idNumMsg').textContent = "";
+            }else{
+                document.getElementById('idNumMsg').textContent = "6자리 숫자 - 7자리 숫자";
+            }
+        }
+
+        function checkId(id){
+            var regExp = /^[a-zA-Z]{1}[a-zA-Z0-9]{7,11}$/;
+            if(regExp.test(id)){
+                document.getElementById('idMsg').textContent = "";
+            }else{
+            document.getElementById('idMsg').textContent = "숫자, 영문자로 8~12자, 첫글자 영문자";
+            }
+        }
+    </script>
+</body>
+</html>

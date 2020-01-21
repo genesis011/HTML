@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML File API </title>
+    <script>
+        function readFile() {
+            var files = document.getElementById('input').files;
+            output = "";
+            for (var i = 0, f; f = files[i]; i++) {
+                output += f.name + "\n";       /* f.name - Filename  */
+                output += f.type + "\n";                 /* f.type - File Type */
+                output += f.size + "bytes\n";             /* f.size - File Size */
+                output += f.lastModifiedDate + "\n";  /* f.lastModifiedDate */
+            }
+            document.getElementById('result').value = output;
+        }
+    </script>
+</head>
+<body>
+    <input type="file" id="input" name="input">
+    <button id="readfile" onclick="readFile()">파일 읽기</button><br />
+    <textarea id="result" rows="6" cols="60"> </textarea>
+</body>
+</html>

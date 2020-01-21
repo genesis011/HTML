@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            font-size: 18px;
+        }
+        
+        .button {
+            width : 30px;
+            height : 30px;
+            text-align: center;
+        }
+
+        #display{
+            width: 120px;
+            height: 30px;
+            padding: 0 3px;
+            box-sizing: border-box;
+        }
+    </style>
+
+</head>
+<body onload="initSetting()">
+    <script>
+        var calculator = document.createElement('div');
+        var display = document.createElement('input');
+        display.id = "display";
+        calculator.style.border = "1px solid black";
+        calculator.style.display = "inline-block";
+        calculator.style.padding = "10px";
+        calculator.appendChild(display);
+        
+        var expression = "";
+        var buttonArray = [7, 8, 9, 'cl', 4, 5, 6, '+', 1, 2, 3, '-', 0, '*', '/', '='];
+        
+        function initSetting(){
+            calculator.appendChild(document.createElement('form'));
+            document.body.appendChild(calculator);
+            
+            for(var i = 0 ; i < buttonArray.length ; i++){
+                var button = document.createElement('input');
+                button.type = 'button';
+                button.value = buttonArray[i];
+                button.classList.add("button");
+                calculator.appendChild(button);
+
+                if((i+1) % 4 === 0){
+                    calculator.appendChild(document.createElement('br'));
+                }
+                
+                switch(buttonArray[i]){
+                    case 'cl':
+                        button.addEventListener('click', clearDisplay);
+                        break;
+                    case '=':
+                        button.addEventListener('click', compute); 
+                        break;
+                    default : 
+                        button.addEventListener('click', function(e){
+                            expression = expression + e.currentTarget.value;
+                            display.value = expression;
+                        });
+                        break;
+                }
+            }
+        }
+
+        function clearDisplay(){
+            expression = "";
+            display.value = expression;
+        }
+
+        function compute(){
+            if(expression === ""){
+                return;
+            }
+            expression = eval(expression);
+            display.value = expression;
+            expression = display.value;
+        }
+    </script>
+    
+</body>
+</html>

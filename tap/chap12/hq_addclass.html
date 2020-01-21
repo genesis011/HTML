@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("button").click(function () {
+                $("#div1").addClass("warning");
+            });
+        });
+    </script>
+    <style>
+        .warning {
+            border: 1px solid black;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1">
+        <p>예제 단락입니다.</p>
+    </div>
+    <br>
+    <button>addClass()</button>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<html>
+
+<head>
+  <title>실명확인</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script language="javascript" src="check.js">
+  </script>
+</head>
+
+<body>
+  <center><br><b>[회원 실명 확인]</b>
+    <form name="regform" method="post" onsubmit="return CheckForm(document.regform)">
+      <table border="0" cellspacing="0" cellpadding="5" class="ta">
+        <tr>
+          <td colspan="2" class="t0">이용자 본인의 이름 및 주민등록번호를 정확히 입력해주시기
+            바랍니다.</td>
+        </tr>
+        <tr>
+          <td class=t1 style="letter-spacing:45">이름</td>
+          <td class=t2>&nbsp;&nbsp;<input type=text size=28 name="user_name" maxlength=5 style="ime-mode:active;" class="in"> &nbsp;[공백없이 입력하세요]</td>
+        </tr>
+        <tr>
+          <td class=t1>주민등록번호</td>
+          <td class=t2>&nbsp;&nbsp;<input type=text size=12 maxlength=6 name="jumin1" class="in" onKeyUp="check_focus(this.form)">
+            &nbsp;-&nbsp;
+            <input type=password size=12 maxlength=7 name="jumin2" class="in"></td>
+        </tr>
+        <tr>
+          <td class=t3 style="letter-spacing:17">아이디</td>
+          <td>&nbsp;&nbsp;<input type=text size=28 maxlength=10 name="user_id" class="in">
+            <input type="button" value="아이디검색" class="bu" onfocus="blur()" style="width:80" onclick="id_check()"></td>
+        </tr>
+      </table><br>
+      <div style="width:520;">
+        <input type="submit" value="등록" class="bu" onfocus="blur()">&nbsp;&nbsp;
+        <input type="reset" value="취소" class="bu" onfocus="blur()">
+      </div>
+    </form>
+  </center>
+</body>
+
+</html>

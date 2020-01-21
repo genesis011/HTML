@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+    <p>
+        <button onclick="incrementCounter()" type="button">눌러보세요!</button>
+    </p>
+    <div id="target"></div>
+    <script>
+        function incrementCounter() {
+            if (('localStorage' in window) && window['localStorage'] !== null) {
+                if (localStorage.count) {
+                    localStorage.count++;
+                }
+                else {
+                    localStorage.count = 1;
+                }
+                document.getElementById("target").innerHTML =
+			localStorage.count + "번 클릭하였습니다.";
+            }
+            else {
+                document.getElementById("target").innerHTML =
+			"브라우저가 웹스토리지를 지원하지 않습니다.";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+﻿<html>
+<head>
+<title>the title</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" language="javascript">
+  $(document).ready(function() {
+      $("#driver").click(function(event){
+          $.post( 
+             "ajaxs.jsp",
+             $("#testform").serialize(),
+             function(data) {
+                $('#message').html(data);
+             }
+
+          );
+      });
+   });
+   </script>
+</head>
+<body>
+<form id="testform">
+<input type="text" name="name">
+<input type="button" value="입력" id="driver">
+</form>
+<div id="message"></div>
+</body>
+</html>
+

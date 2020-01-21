@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script>
+      window.onload = function(){
+        document.getElementById("btn").onclick = function(){
+          var arr = ["사과", "오렌지", "귤", "당근", "케일"];
+          var num = Math.floor(Math.random() * 5 + 0);
+          alert(arr[num]);
+        }
+      }
+    </script>
+
+  </head>
+  <body>
+    <input type="button" id="btn" name="" value="확인">
+  </body>
+</html>

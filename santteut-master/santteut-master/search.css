@@ -1,0 +1,6 @@
+#main_search input{font-size: 25px; width:90%; height: 50px;}
+
+#search1 i{color: white;cursor: pointer;}
+#recomend_mt{color:white ;text-decoration:none}
+#recomend_mt:hover{text-decoration:underline;}
+/* #search1 i :hover{cursor: pointer;} */

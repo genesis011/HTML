@@ -1,0 +1,21 @@
+<!DOCTYPE>
+<html>
+
+<head>
+  <script>
+    function process() {
+      var obj = document.myform.text1;
+      alert(obj.value);
+    }
+  </script>
+
+</head>
+
+<body>
+  <form name="myform">
+    <input type="text" id="target" name="text1">
+    <input type="submit" onclick="process()" value="제출">
+  </form>
+</body>
+
+</html>

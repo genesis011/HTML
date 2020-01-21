@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script>
+      var today = new Date();
+      document.write(today.toDateString() + "<br>");
+      document.write(today.toISOString() + "<br>");
+      document.write(today.toJSON() + "<br>");
+      document.write(today.toLocaleDateString() + "<br>");
+      document.write(today.toLocaleTimeString() + "<br>");
+      document.write(today.toLocaleString() + "<br>");
+      document.write(today.toTimeString() + "<br>");
+      document.write(today.toUTCString() + "<br>");
+
+
+      function checkDate() {
+        var s = document.getElementById("pdate").value;
+        var pdate = new Date(s);
+        var today = new Date();
+        var diff = today.getTime() - pdate.getTime();
+        var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        if (days > 30) {
+          alert("교환이 기간이 지났습니다.");
+        }
+      }
+
+    </script>
+
+  </head>
+  <body>
+    구입짜 :
+    <input type="date" id="pdate" name="" value="">
+    <button onclick="checkDate()" name="button">검사 </button>
+  </body>
+</html>

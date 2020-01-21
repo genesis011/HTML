@@ -1,0 +1,39 @@
+body {
+    background-color: #efe5d0;
+    font-family: Arial, "Trebuchet MS", sans-serif;
+    margin: 0px;
+}
+
+header {
+    background-color: pink;
+    color: #000000;
+    margin: 0px;
+    text-align: center;
+    padding: 5px;
+}
+
+h1 {
+    margin: 0px;
+}
+
+section#main {
+    display: table-cell;
+    background-color: yellow;
+    padding: 15px;
+    width: 100%;
+}
+
+nav {
+    display: table-cell;
+    background-color: #ffd800;
+    padding: 15px;
+}
+
+footer {
+    background-color: #954b4b;
+    color: #efe5d0;
+    text-align: center;
+    padding: 10px;
+    margin: 0px 0px 0px 0px;
+    font-size: 90%;
+}

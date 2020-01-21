@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <script type="text/javascript">
+    function choice1(select) {
+      alert(select.options[select.selectedIndex].text);
+    }
+  </script>
+
+  <select id="test-dropdown" onchange="choice1(this)">
+    <option value="0">Zero</option>
+    <option value="1">One</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+  </select>
+  <input type="button" name="" value="확인">
+</body>
+
+</html>

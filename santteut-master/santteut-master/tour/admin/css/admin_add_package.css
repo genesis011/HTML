@@ -1,0 +1,9 @@
+#content h2{text-align: center;}
+#insert_form{margin-left: 19%; width: 62.5%; background-color: #eeeeee;}
+#insert_form td{border: 1px solid grey; border-radius: 5px;}
+#insert_form input,select{margin-left: 20px; border: 1px solid #dddddd; border-radius: 5px; height: 25px; text-align: center;}
+.up_img{width: 28%;}
+#insert_form b{margin-left: 20px;}
+#insert_form p{text-align: center; font-weight: bold; font-size: 15px; padding:0px 10px; color: #363c48;}
+#insert_form #insert_btn{font-weight: bold;cursor:pointer; margin-left: 45%; height: 50px; width:100px; border-radius: 10px; margin-top: 5px; margin-bottom: 5px; background-color: #F6F6F6; padding: 5px;}
+#insert_btn:hover{margin-left: 45%; height: 50px; width:100px;  background-color: #A6A6A6;}

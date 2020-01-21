@@ -1,0 +1,9 @@
+﻿   <script>
+       var numbers = [10, 20, 30, 40, 50];
+       function isBigEnough(element, index, array) {
+           return (element >= 30);
+       }
+
+       var filtered = numbers.filter(isBigEnough);
+       document.write("필터링 된 배열: " + filtered);
+    </script>

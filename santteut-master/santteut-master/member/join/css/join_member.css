@@ -1,0 +1,35 @@
+.join_form{margin-left: 27%;  width: 50%; height: 80%; text-align: center; margin-top: 3%;margin-bottom: 3%;}
+.join_form h3{margin-right: 6.5%;}
+#login_button{width: 60px; height: 60px; font-size: 14.5px;}
+#table1 span{color: red;}
+#table1{margin-left: 9%;}
+#table2{margin-left: 9%;}
+#table2 span{color: red;}
+#join_title{margin-left: 18.5%;}
+#join_tr1{text-align: right; font-size: 15px; }
+#cellphone_authentication{height: 28px; font-size: 13px; text-align: center; margin-top: 2px;}
+/* #table1 #last_td1{border-bottom: 1px none #464646; width: 200px;}
+#table1 #last_td2{border-bottom: 1px none #464646; width: 200px;} */
+#table1 th{padding-top: 2%; padding-bottom: 2%; text-align: center; border-top: 1px solid #464646; border-bottom: 1px solid #464646; width: 200px;}
+.join_form #table1{text-align: left; border-collapse: collapse; width: 730px; }
+.join_form #table2{text-align: left; border-collapse: collapse; width: 730px;}
+#table1 td{padding-top: 1%; padding-bottom: 1%; border-top: 1px solid #464646; border-bottom: 1px solid #464646;}
+#table1 input{height: 28px; font-size: 13px; text-align: center;}
+
+#zip_btn{height: 35px;background-color: white; border: 1px solid #464646;font-weight: bold; cursor: pointer;}
+#zip_btn:hover{background-color: #EAEAEA;}
+#join_select{font-size: 14px; padding-bottom:1%; padding-bottom: 2%; padding-left: 1%; padding-top:1%;}
+#email_btn{height: 35px;background-color: white; border: 1px solid #464646;font-weight: bold; cursor: pointer;}
+#email_btn:hover{background-color: #EAEAEA;}
+#hp_btn{height: 35px;background-color: white; border: 1px solid #464646;font-weight: bold; cursor: pointer;}
+#hp_btn:hover{background-color: #EAEAEA;}
+#check_email2{background-color: white; border: 1px solid #464646;}
+
+#hp_btn_done{ margin-top: 3px;height: 35px;background-color: white; border: 1px solid #464646;font-weight: bold; cursor: pointer;}
+#hp_btn_done:hover{background-color: #EAEAEA;}
+#end_btn{height: 50px; width: 70px; padding:5px; font-size: 18px; margin-left: -8%; font-weight: bold; background-color: white; border: 1px solid #464646; cursor: pointer;}
+#end_btn:hover{background-color: #EAEAEA;}
+#end_btn2{height: 50px; width: 70px; padding:5px; font-size: 18px; margin-left: 1%; font-weight: bold; background-color: white; border: 1px solid #464646; cursor: pointer;}
+#end_btn2:hover{background-color: #EAEAEA;}
+#table2 td{border-bottom: 1px solid #464646; padding-top: 4%; padding-bottom: 1%; }
+#table_tr1{text-align: center;}
